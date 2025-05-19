@@ -17,8 +17,14 @@
         <h4 th:text="${i.name}"></h4>
         <p th:text="${i.price} + '원'"></p>
         <div class="links">
-        <a th:href="@{'/detail/' + ${i.id}}">🧾 상세페이지</a>
-        <a th:href="@{'/edit/' + ${i.id}}">✏️ 수정</a>
+            <a th:href="@{'/detail/' + ${i.id}}">🧾 상세페이지</a>
+            <a th:href="@{'/edit/' + ${i.id}}">✏️ 수정</a>
+            <a th:onclick="fetch('/delete?id=[[${i.id}]]', {method : 'DELETE'})
+                .then(r => r.text())
+                .then(() => {
+                    location.reload();
+                })
+            ">🗑️ 삭제</a>
         </div>
     </div>
 </div>

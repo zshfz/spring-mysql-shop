@@ -11,13 +11,11 @@
 <body>
 
 <div th:replace="~{nav.html::navbar}"></div>
-<div class="card" th:each="i : ${items}">
+<div class="detail">
+    <h4>상세페이지</h4>
     <img src="https://placehold.co/300">
-    <div>
-        <h4 th:text="${i.name}"></h4>
-        <p th:text="${i.price} + '원'"></p>
-        <a th:href="@{'/detail/' + ${i.id}}">🧾상세페이지</a>
-    </div>
+    <h4 th:text="${data.name}">금도금 바지</h4>
+    <p th:text="${data.price + '원'}">7억</p>
 </div>
 <footer th:replace="~{footer.html::footer}"></footer>
 

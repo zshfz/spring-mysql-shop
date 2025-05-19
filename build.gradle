@@ -35,6 +35,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	//html에서 회원정보 쉽게 꺼내쓸 수 있게 도와주는 라이브러리
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE'
+	//사용자 세션을 메모리에 저장하는것이 아니라 DB에 저장하도록
+	implementation 'org.springframework.session:spring-session-jdbc'
 
 }
 

@@ -2,4 +2,11 @@
     <a class="logo">SpringMall</a>
     <a href="/">List</a>
     <a href="/write">Write</a>
+    <a sec:authorize="isAnonymous()" href="/login">로그인</a>
+    <a sec:authorize="isAnonymous()" href="/register">회원가입</a>
+    <a sec:authorize="isAuthenticated()" href="/my-page">마이페이지</a>
+    <a sec:authorize="isAuthenticated()" href="#" onclick="document.getElementById('logoutForm').submit(); return false;">
+        로그아웃
+    </a>
+    <form id="logoutForm" action="/logout" method="POST" style="display: none;"></form>
 </div>

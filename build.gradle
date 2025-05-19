@@ -35,6 +35,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	//html에서 회원정보 쉽게 꺼내쓸 수 있게 도와주는 라이브러리
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE'
+
 }
 
 tasks.named('test') {

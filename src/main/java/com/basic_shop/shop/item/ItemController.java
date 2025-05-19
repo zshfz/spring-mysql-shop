@@ -15,8 +15,7 @@ public class ItemController {
 
     @GetMapping("/list")
     public String list(Model model) {
-        List<Item> result = itemRepository.findAll();
-        model.addAttribute("items", result);
+        model.addAttribute("items", itemService.getAllItems());
         return "list.html";
     }
 
@@ -44,5 +43,17 @@ public class ItemController {
     public String detail(@PathVariable Long id, Model model) {
         model.addAttribute("data", itemService.findItem(id));
         return "detail.html";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Long id, Model model) {
+        model.addAttribute("data", itemService.findItem(id));
+        return "edit.html";
+    }
+
+    @PostMapping("/edit")
+    public String editItem(@RequestParam Long id, @RequestParam String name, @RequestParam Integer price) {
+        itemService.saveItem(id, name, price);
+        return "redirect:/list";
     }
 }

@@ -11,13 +11,11 @@
 <body>
 
 <div th:replace="~{nav.html::navbar}"></div>
-<div class="card" th:each="i : ${items}">
-    <img src="https://placehold.co/300">
-    <div>
-        <h4 th:text="${i.name}"></h4>
-        <p th:text="${i.price} + '원'"></p>
-    </div>
-</div>
+<form action="/add", method="POST">
+    <input name="name" placeholder="상품 이름">
+    <input name="price" placeholder="가격">
+    <button type="submit">전송</button>
+</form>
 <footer th:replace="~{footer.html::footer}"></footer>
 
 </body>

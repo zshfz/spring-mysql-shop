@@ -14,7 +14,7 @@ public class ItemService {
 
     private final ItemRepository itemRepository;
 
-    public void saveItem(String name, Integer price) {
+    public void saveItem(String name, Integer price, String imageUrl) {
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("상품 이름은 필수입니다.");
         }
@@ -31,6 +31,7 @@ public class ItemService {
         Item item = new Item();
         item.setName(name);
         item.setPrice(price);
+        item.setImageUrl((imageUrl == null || imageUrl.isEmpty()) ? "https://placehold.co/300" : imageUrl);
         itemRepository.save(item);
     }
 

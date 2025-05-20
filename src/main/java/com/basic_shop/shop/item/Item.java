@@ -14,4 +14,6 @@ public class Item {
     private Integer price;
     @Column(nullable = false)
     private String name;
+
+    private String imageUrl;
 }

@@ -37,7 +37,11 @@ dependencies {
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE'
 	//사용자 세션을 메모리에 저장하는것이 아니라 DB에 저장하도록
 	implementation 'org.springframework.session:spring-session-jdbc'
-
+	//AWS S3
+	implementation 'io.awspring.cloud:spring-cloud-aws-starter-s3:3.1.1'
+	//presigned-url
+	implementation 'software.amazon.awssdk:s3'
+	implementation 'software.amazon.awssdk:s3-presigner'
 }
 
 tasks.named('test') {

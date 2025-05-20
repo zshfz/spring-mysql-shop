@@ -15,6 +15,7 @@ import java.util.List;
 public class ItemController {
     private final ItemRepository itemRepository;
     private final ItemService itemService;
+    private final S3Service s3Service;
 
     @GetMapping("/")
     public String rootRedirect() {
@@ -29,8 +30,8 @@ public class ItemController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/add")
-    public String addPost(@RequestParam String name, @RequestParam Integer price) {
-        itemService.saveItem(name, price);
+    public String addPost(@RequestParam String name, @RequestParam Integer price, @RequestParam String imageUrl) {
+        itemService.saveItem(name, price, imageUrl);
         return "redirect:/";
     }
 
@@ -92,5 +93,11 @@ public class ItemController {
         model.addAttribute("items", result);
         model.addAttribute("isSearch", true); // 검색 여부 전달
         return "list.html";
+    }
+
+    @GetMapping("/presigned-url")
+    @ResponseBody
+    public String getURL(@RequestParam String filename) {
+        return s3Service.createPresignedUrl("test/" + filename);
     }
 }

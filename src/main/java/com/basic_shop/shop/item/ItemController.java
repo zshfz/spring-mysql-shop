@@ -1,6 +1,7 @@
 package com.basic_shop.shop.item;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -16,9 +17,8 @@ public class ItemController {
     private final ItemService itemService;
 
     @GetMapping("/")
-    public String list(Model model) {
-        model.addAttribute("items", itemService.getAllItems());
-        return "list.html";
+    public String rootRedirect() {
+        return "redirect:/list/page/1";
     }
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -74,5 +74,14 @@ public class ItemController {
     public String forbidden(Model model) {
         model.addAttribute("message", "관리자만 상품 등록, 수정, 삭제가 가능합니다.");
         return "forbidden.html";
+    }
+
+    @GetMapping("/list/page/{id}")
+    public String getListPage(@PathVariable Integer id, Model model) {
+        Page<Item> result = itemService.getPage(id);
+        model.addAttribute("items", result);
+        model.addAttribute("totalPages", result.getTotalPages());
+        model.addAttribute("currentPage", id);
+        return "list.html";
     }
 }

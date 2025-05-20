@@ -5,6 +5,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class MemberService {
@@ -30,5 +32,12 @@ public class MemberService {
         member.setUsername(username);
         member.setPassword(passwordEncoder.encode(password));
         memberRepository.save(member);
+    }
+
+    //dto 사용 예제
+    public MemberDto getUser(Long id) {
+        Optional<Member> result = memberRepository.findById(id);
+        MemberDto memberDto = new MemberDto(result.get().getUsername(), result.get().getDisplayName());
+        return memberDto;
     }
 }

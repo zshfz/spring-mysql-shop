@@ -85,3 +85,31 @@ footer {
 .links a:hover{
  text-decoration : underline;
 }
+
+.pagination {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.pagination a {
+    display: inline-block;
+    padding: 8px 12px;
+    margin: 0 3px;
+    border: 1px solid #333;
+    color: #333;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: all 0.2s ease-in-out;
+}
+
+.pagination a:hover {
+    background-color: #333;
+    color: white;
+}
+
+.pagination .active {
+    background-color: black;
+    color: white;
+    border-color: black;
+}

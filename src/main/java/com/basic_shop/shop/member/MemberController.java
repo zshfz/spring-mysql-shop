@@ -4,9 +4,7 @@ import com.basic_shop.shop.CustomUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -39,5 +37,13 @@ public class MemberController {
         }
     }
 
+    //dto 사용 예시
+    /*
+    @GetMapping("/user/{id}")
+    @ResponseBody
+    public MemberDto getUserInfo(@PathVariable Long id) {
+        return memberService.getUser(id);
+    }
+    */
 
 }

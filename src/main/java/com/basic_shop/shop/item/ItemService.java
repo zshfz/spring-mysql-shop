@@ -1,6 +1,8 @@
 package com.basic_shop.shop.item;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,10 +13,6 @@ import java.util.Optional;
 public class ItemService {
 
     private final ItemRepository itemRepository;
-
-    public List<Item> getAllItems() {
-        return itemRepository.findAll();
-    }
 
     public void saveItem(String name, Integer price) {
         if (name == null || name.trim().isEmpty()) {
@@ -63,5 +61,9 @@ public class ItemService {
             throw new IllegalArgumentException("해당 아이템이 없습니다.");
         }
         return result.get();
+    }
+
+    public Page getPage(Integer id) {
+        return itemRepository.findPageBy(PageRequest.of(id - 1, 3));
     }
 }

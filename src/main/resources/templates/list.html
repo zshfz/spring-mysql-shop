@@ -28,6 +28,13 @@
         </div>
     </div>
 </div>
+<div class="pagination">
+    <span th:each="i : ${#numbers.sequence(1, totalPages)}">
+        <a th:href="@{'/list/page/' + ${i}}"
+           th:text="${i}"
+           th:classappend="${i == currentPage} ? 'active' : ''"></a>
+    </span>
+</div>
 <footer th:replace="~{footer.html::footer}"></footer>
 
 </body>

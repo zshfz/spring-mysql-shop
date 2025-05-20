@@ -82,6 +82,15 @@ public class ItemController {
         model.addAttribute("items", result);
         model.addAttribute("totalPages", result.getTotalPages());
         model.addAttribute("currentPage", id);
+        model.addAttribute("isSearch", false);
+        return "list.html";
+    }
+
+    @PostMapping("/search")
+    public String postSearch(@RequestParam String searchText, Model model) {
+        List<Item> result = itemRepository.rawQuery1(searchText);
+        model.addAttribute("items", result);
+        model.addAttribute("isSearch", true); // 검색 여부 전달
         return "list.html";
     }
 }

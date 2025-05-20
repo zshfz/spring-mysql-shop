@@ -11,6 +11,10 @@
 <body>
 
 <div th:replace="~{nav.html::navbar}"></div>
+<form action="/search" method="POST" onsubmit="return validateSearch()">
+    <input class="search" name="searchText" id="searchText" placeholder="상품 이름을 입력하세요.">
+    <button>검색</button>
+</form>
 <div class="card" th:each="i : ${items}">
     <img src="https://placehold.co/300">
     <div>
@@ -28,7 +32,7 @@
         </div>
     </div>
 </div>
-<div class="pagination">
+<div class="pagination" th:if="${not isSearch}">
     <span th:each="i : ${#numbers.sequence(1, totalPages)}">
         <a th:href="@{'/list/page/' + ${i}}"
            th:text="${i}"
@@ -36,6 +40,17 @@
     </span>
 </div>
 <footer th:replace="~{footer.html::footer}"></footer>
+
+<script>
+    function validateSearch() {
+        const value = document.getElementById('searchText').value.trim();
+        if (value === "") {
+            alert("검색어를 입력하세요.");
+            return false; // 제출 막음
+        }
+        return true; // 정상 제출
+    }
+</script>
 
 </body>
 </html>

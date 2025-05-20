@@ -63,7 +63,7 @@ public class ItemService {
         return result.get();
     }
 
-    public Page getPage(Integer id) {
+    public Page<Item> getPage(Integer id) {
         return itemRepository.findPageBy(PageRequest.of(id - 1, 3));
     }
 }

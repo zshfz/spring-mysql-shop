@@ -113,3 +113,7 @@ footer {
     color: white;
     border-color: black;
 }
+
+.search {
+ display : inline;
+}

@@ -8,6 +8,6 @@ public class ProductController {
 
     @GetMapping("/")
     public String showProductList() {
-        return "product-list.html";
+        return "product-list";
     }
 }

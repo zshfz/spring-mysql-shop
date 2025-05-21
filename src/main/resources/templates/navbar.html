@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+            rel="stylesheet"
+    />
+    <title>Document</title>
+</head>
+<body>
+<nav class="navbar" th:fragment="navbar">
+    <div class="navbar-overlay" onclick="toggleMenuOpen()"></div>
+
+    <button type="button" class="navbar-burger" onclick="toggleMenuOpen()">
+        <span class="material-symbols-outlined">menu</span>
+    </button>
+
+    <h1 class="navbar-title">SpringMall</h1>
+
+    <nav class="navbar-menu">
+        <button type="button" class="active">Login</button>
+        <button type="button" class="active">Register</button>
+    </nav>
+</nav>
+
+
+</body>
+</html>

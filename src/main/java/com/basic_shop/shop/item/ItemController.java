@@ -1,5 +1,6 @@
 package com.basic_shop.shop.item;
 
+import com.basic_shop.shop.comment.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ItemController {
     private final ItemRepository itemRepository;
+    private final CommentRepository commentRepository;
     private final ItemService itemService;
     private final S3Service s3Service;
 
@@ -46,6 +48,7 @@ public class ItemController {
 
     @GetMapping("/detail/{id}")
     public String detail(@PathVariable Long id, Model model) {
+        model.addAttribute("comment", commentRepository.findAllByParentId(id));
         model.addAttribute("data", itemService.findItem(id));
         return "detail.html";
     }

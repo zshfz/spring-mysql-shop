@@ -82,13 +82,10 @@ body.open .navbar-menu {
   background: transparent;
   padding: 0 8px;
   transition: all 0.3s;
-}
-
-.navbar-menu > button.active {
   color: inherit;
 }
 
-.navbar-menu > button.active:hover {
+.navbar-menu > button:hover {
   color: rgba(255, 255, 255, 0.75);
 }
 

@@ -1,10 +1,15 @@
 package com.basic_shop.shop.member;
 
+import com.basic_shop.shop.CustomUser;
+import com.basic_shop.shop.orders.Orders;
+import com.basic_shop.shop.orders.OrdersRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -13,6 +18,7 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
+    private final OrdersRepository ordersRepository;
 
     public void saveMember(String displayName, String username, String password) {
         if (memberRepository.findByUsername(username).isPresent()) {
@@ -39,5 +45,10 @@ public class MemberService {
         Optional<Member> result = memberRepository.findById(id);
         MemberDto memberDto = new MemberDto(result.get().getUsername(), result.get().getDisplayName());
         return memberDto;
+    }
+
+    public List<Orders> findPersonalOrders(Authentication authentication) {
+        CustomUser customUser = (CustomUser) authentication.getPrincipal();
+        return ordersRepository.findAllByMemberId(customUser.getId());
     }
 }

@@ -7,6 +7,7 @@ import java.util.Collection;
 
 public class CustomUser extends User { //User에는 displayName 없으니까 직접 커스텀
     private String displayName;
+    private Long id;
     public CustomUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);
     }
@@ -17,5 +18,13 @@ public class CustomUser extends User { //User에는 displayName 없으니까 직
 
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

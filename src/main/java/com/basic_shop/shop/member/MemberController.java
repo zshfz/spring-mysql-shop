@@ -1,16 +1,22 @@
 package com.basic_shop.shop.member;
 
 import com.basic_shop.shop.CustomUser;
+import com.basic_shop.shop.orders.Orders;
+import com.basic_shop.shop.orders.OrdersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.security.core.Authentication;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 public class MemberController {
 
     private final MemberService memberService;
+    private final OrdersRepository ordersRepository;
 
     @GetMapping("/register")
     public String register() {
@@ -29,9 +35,10 @@ public class MemberController {
     }
 
     @GetMapping("/my-page")
-    public String myPage(Authentication authentication) {
+    public String myPage(Authentication authentication, Model model) {
         if (authentication.isAuthenticated()) {
-            return "mypage.html";
+            model.addAttribute("orders", memberService.findPersonalOrders(authentication));
+            return "my-page.html";
         } else {
             return "login.html";
         }

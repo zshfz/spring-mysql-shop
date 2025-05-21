@@ -76,7 +76,7 @@ public class ItemController {
 
     @GetMapping("/forbidden")
     public String forbidden(Model model) {
-        model.addAttribute("message", "관리자만 상품 등록, 수정, 삭제가 가능합니다.");
+        model.addAttribute("message", "관리자만 가능한 기능입니다.");
         return "forbidden.html";
     }
 

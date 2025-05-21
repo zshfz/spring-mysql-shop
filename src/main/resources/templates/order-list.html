@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<h3>주문 목록</h3>
+<div th:each="i : ${orders}">
+    <h4 th:text="'#' + ${i.id}"></h4>
+    <div th:text="'주문자 이름 : ' + ${i.member.displayName}"></div>
+    <div th:text="'주문 물품 : ' + ${i.itemName}"></div>
+
+    <div th:text="'주문 수량 : ' + ${i.count}"></div>
+    <div th:text="'총 가격 : ' + ${i.price * i.count}"></div>
+    <div th:text="'주문 날짜 : ' + ${i.created}"></div>
+</div>
+
+</body>
+</html>

@@ -22,6 +22,14 @@
 <div sec:authorize="hasRole('ADMIN')">
     권한 : 관리자
 </div>
+<h4>주문 목록</h4>
+<div th:each="i : ${orders}">
+    <div th:text="'주문 물품 : ' + ${i.itemName}"></div>
+    <div th:text="'주문 수량 : ' + ${i.count}"></div>
+    <div th:text="'총 가격 : ' + ${i.price * i.count}"></div>
+    <div th:text="'주문 날짜 : ' + ${i.created}"></div>
+    <br>
+</div>
 <footer th:replace="~{footer.html::footer}"></footer>
 
 </body>

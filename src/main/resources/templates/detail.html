@@ -18,6 +18,13 @@
     <p th:text="${data.price + '원'}">7억</p>
 </div>
 
+<form action="/order" method="POST">
+    <input name="name" th:value="${data.name}" readonly>
+    <input name="price" th:value="${data.price}" readonly>
+    <input name="count" placeholder="수량을 입력하세요.">
+    <button type="submit">주문</button>
+</form>
+
 <div sec:authorize="isAuthenticated()" class="comment-form">
     <form action="/comment" method="POST">
         <input name="content" placeholder="리뷰를 입력하세요." class="comment-input">

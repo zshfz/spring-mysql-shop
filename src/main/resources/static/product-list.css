@@ -1,0 +1,7 @@
+body {
+  background-image: url("background.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  animation: rotate 6s infinite alternate linear;
+}
+

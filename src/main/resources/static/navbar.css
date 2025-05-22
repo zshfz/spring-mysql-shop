@@ -49,6 +49,7 @@ body.open .navbar-overlay {
 }
 
 .navbar-title {
+  line-height: 64px;
   margin: 0;
   font-size: 16px;
 }

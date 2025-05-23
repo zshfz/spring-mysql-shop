@@ -59,7 +59,7 @@ label {
   margin-top: 5px;
 }
 
-button {
+.write-btn {
   width: 100%;
   background: #3b3d43;
   color: white;
@@ -70,6 +70,6 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+.write-btn:hover {
   background: #19191c;
 }

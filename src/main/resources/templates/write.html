@@ -33,7 +33,7 @@
                     <input th:field="*{price}" placeholder="price" />
                     <div class="error" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
                 </div>
-                <button type="submit">Write</button>
+                <button class="write-btn" type="submit">Write</button>
             </form>
         </div>
     </div>

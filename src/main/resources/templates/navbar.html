@@ -15,12 +15,12 @@
         <i class="ri-menu-line"></i>
     </button>
 
-    <h1 class="navbar-title" onclick="location.href='/'">SpringMall</h1>
+    <h1 class="navbar-title"  th:onclick="|location.href='@{/}'|">SpringMall</h1>
 
     <nav class="navbar-menu">
-        <button type="button" onclick="location.href='/write'">Write</button>
-        <button type="button" onclick="location.href='/login'">Login</button>
-        <button type="button" onclick="location.href='/register'">Register</button>
+        <button type="button" th:onclick="|location.href='@{/write}'|">Write</button>
+        <button type="button" th:onclick="|location.href='@{/login}'|">Login</button>
+        <button type="button" th:onclick="|location.href='@{/register}'|">Register</button>
     </nav>
 </nav>
 

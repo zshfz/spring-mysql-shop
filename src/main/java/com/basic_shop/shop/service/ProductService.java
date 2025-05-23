@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,5 +26,15 @@ public class ProductService {
         product.setTitle(productDto.getTitle());
         product.setPrice(productDto.getPrice());
         productRepository.save(product);
+    }
+
+    //상품 찾기
+    public Product getDetail(Long id) {
+        Optional<Product> result = productRepository.findById(id);
+        if (result.isPresent()) {
+            return result.get();
+        }else {
+            throw new IllegalArgumentException("The requested product does not exist.");
+        }
     }
 }

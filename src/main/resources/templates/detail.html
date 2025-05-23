@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/common.css">
+    <link rel="stylesheet" href="/navbar.css">
+    <link rel="stylesheet" href="/detail.css">
+    <link rel="stylesheet" href="/footer.css">
+    <title>Document</title>
+</head>
+<body>
+<div th:replace="~{navbar.html :: navbar}"></div>
+<div class="detail-container">
+    <div class="left">
+        <img src="/jacket.png" />
+    </div>
+    <div class="right">
+        <h2 class="product-title">Jacket</h2>
+
+        <p class="product-price">₩19,900</p>
+
+        <div class="product-description">
+            <h4>Description</h4>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+                ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                aliquip ex ea commodo consequat.
+            </p>
+        </div>
+
+        <div class="quantity-wrapper">
+            <label for="quantity">Count</label>
+            <input type="number" id="quantity" min="1" value="1" />
+        </div>
+
+        <p class="total-price" id="total-price">Quantity: ₩19,900</p>
+
+        <button class="buy-button">BUY</button>
+    </div>
+</div>
+<div th:replace="~{footer.html :: footer}"></div>
+
+<script>
+    const unitPrice = 19900;
+    const quantityInput = document.getElementById("quantity");
+    const totalPriceEl = document.getElementById("total-price");
+
+    quantityInput.addEventListener("input", () => {
+      const quantity = parseInt(quantityInput.value) || 1;
+      const total = unitPrice * quantity;
+      totalPriceEl.textContent = `Quantity: ₩${total.toLocaleString()}`;
+    });
+</script>
+</body>
+</html>

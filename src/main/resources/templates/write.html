@@ -15,9 +15,11 @@
 <body>
 
 <div th:replace="~{navbar.html :: navbar}"></div>
-<form action="/write" method="POST">
-    <input name="title" placeholder="title">
-    <input name="price" placeholder="price">
+<form action="/write" method="POST" th:object="${productDto}">
+    <input th:field="*{title}"  placeholder="title">
+    <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+    <input th:field="*{price}" placeholder="price">
+    <div th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
     <button type="submit">Write</button>
 </form>
 <div th:replace="~{footer.html :: footer}"></div>

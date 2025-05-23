@@ -11,6 +11,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class ProductDto {
+    private Long id;
     @NotBlank(message = "Please enter the product name.")
     private String title;
     @NotNull(message = "Please enter the price.")

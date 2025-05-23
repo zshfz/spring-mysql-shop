@@ -19,9 +19,9 @@
         <img src="/image/jacket.png" />
     </div>
     <div class="right">
-        <h2 class="product-title" th:text="${product.title}"></h2>
+        <h2 class="product-title" th:text="${productDto.title}"></h2>
 
-        <p class="product-price" th:text="'₩' + ${#numbers.formatInteger(product.price, 3, 'COMMA')}"></p>
+        <p class="product-price" th:text="'₩' + ${#numbers.formatInteger(productDto.price, 3, 'COMMA')}"></p>
 
         <div class="product-description">
             <h4>Description</h4>
@@ -38,8 +38,8 @@
             <input type="number" id="quantity" min="1" value="1" />
         </div>
 
-        <p class="total-price" id="total-price" th:text="'₩ Quantity: ' + ${product.price}"></p>
-        <input type="hidden" id="unit-price" th:value="${product.price}" />
+        <p class="total-price" id="total-price" th:text="'₩ Quantity: ' + ${productDto.price}"></p>
+        <input type="hidden" id="unit-price" th:value="${productDto.price}" />
 
         <button class="buy-button">BUY</button>
     </div>

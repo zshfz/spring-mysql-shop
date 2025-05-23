@@ -23,6 +23,8 @@
                 <div class="image-preview">Image preview (coming soon)</div>
 
                 <div class="form-group">
+                    <input type="hidden" th:field="*{id}" />
+
                     <label>Product Name</label>
                     <input th:field="*{title}" placeholder="title" />
                     <div class="error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>

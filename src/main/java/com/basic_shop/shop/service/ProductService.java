@@ -15,7 +15,7 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    //상품 목록 불러오기
+    //상품 목록 불러오기 (단순 조회용이라 DTO 사용 X)
     public List<Product> getProductList() {
         return productRepository.findAll();
     }
@@ -29,12 +29,31 @@ public class ProductService {
     }
 
     //상품 찾기
-    public Product getDetail(Long id) {
+    public Product getProduct(Long id) {
         Optional<Product> result = productRepository.findById(id);
         if (result.isPresent()) {
             return result.get();
         }else {
             throw new IllegalArgumentException("The requested product does not exist.");
         }
+    }
+
+    //상품 찾아서 DTO로 변환
+    public ProductDto getProductDto(Long id) {
+        Product product = getProduct(id);
+        ProductDto productDto = new ProductDto();
+        productDto.setId(product.getId());
+        productDto.setTitle(product.getTitle());
+        productDto.setPrice(product.getPrice());
+        return productDto;
+    }
+
+    //상품 수정
+    public void updatePost(Long id, ProductDto productDto) {
+        Product product = new Product();
+        product.setId(id);
+        product.setTitle(productDto.getTitle());
+        product.setPrice(productDto.getPrice());
+        productRepository.save(product);
     }
 }

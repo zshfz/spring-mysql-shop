@@ -27,14 +27,14 @@ public class ProductController {
         return "main";
     }
 
-    //글쓰기 화면 불러오기
+    //상품등록 화면 불러오기
     @GetMapping("/write")
     public String showWriteForm(Model model) {
         model.addAttribute("productDto", new ProductDto());
         return "write";
     }
 
-    //글쓰기
+    //상품 등록하기
     @PostMapping("/write")
     public String writePost(@Valid ProductDto productDto, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
@@ -47,8 +47,24 @@ public class ProductController {
     //상세페이지 불러오기
     @GetMapping("/detail/{id}")
     public String showDetailPage(@PathVariable Long id, Model model) {
-        Product product = productService.getDetail(id);
-        model.addAttribute(product);
+        model.addAttribute("productDto", productService.getProductDto(id));
         return "detail";
+    }
+
+    //상품 수정 화면 불러오기
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable Long id, Model model) {
+        model.addAttribute("productDto", productService.getProductDto(id));
+        return "edit";
+    }
+
+    //상품 수정하기
+    @PostMapping("/edit/{id}")
+    public String editPost(@PathVariable Long id, @Valid ProductDto productDto, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "edit";
+        }
+        productService.updatePost(id, productDto);
+        return "redirect:/detail/" + id;
     }
 }

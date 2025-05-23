@@ -47,6 +47,8 @@
 <div th:replace="~{footer.html :: footer}"></div>
 
 <script>
+    const toggleMenuOpen = () => document.body.classList.toggle("open");
+
     const quantityInput = document.getElementById("quantity");
     const totalPriceEl = document.getElementById("total-price");
     const unitPrice = parseInt(document.getElementById("unit-price").value);

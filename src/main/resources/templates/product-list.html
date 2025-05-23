@@ -15,13 +15,13 @@
                 <img src="/jacket.png" />
                 <div class="icons">
                     <i class="ri-edit-fill"></i>
-                    <i class="ri-information-fill"></i>
+                    <i class="ri-information-fill" th:onclick="|location.href='/detail/${product.id}'|"></i>
                     <i class="ri-delete-bin-6-fill"></i>
                 </div>
             </div>
             <div class="content">
                 <h3 th:text="${product.title}"></h3>
-                <div class="price" th:text="${product.price} + '₩'"></div>
+                <div class="price" th:text="'₩' + ${#numbers.formatInteger(product.price, 3, 'COMMA')}"></div>
             </div>
         </div>
     </div>

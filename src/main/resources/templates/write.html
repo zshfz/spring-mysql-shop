@@ -15,13 +15,30 @@
 <body>
 
 <div th:replace="~{navbar.html :: navbar}"></div>
-<form action="/write" method="POST" th:object="${productDto}">
-    <input th:field="*{title}"  placeholder="title">
-    <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
-    <input th:field="*{price}" placeholder="price">
-    <div th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
-    <button type="submit">Write</button>
-</form>
+<body>
+<div class="form-wrapper">
+    <div class="form-container">
+        <h2>Register Product</h2>
+
+        <form action="/write" method="POST" th:object="${productDto}">
+            <div class="image-preview">Image preview (coming soon)</div>
+
+            <div class="form-group">
+                <label>Product Name</label>
+                <input th:field="*{title}" placeholder="title" />
+                <div class="error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+            </div>
+
+            <div class="form-group">
+                <label>Product Price</label>
+                <input th:field="*{price}" placeholder="price" />
+                <div class="error" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+            </div>
+            <button type="submit">Write</button>
+        </form>
+    </div>
+</div>
+</body>
 <div th:replace="~{footer.html :: footer}"></div>
 
 </body>

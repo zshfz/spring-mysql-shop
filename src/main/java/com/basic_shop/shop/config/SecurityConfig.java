@@ -23,6 +23,13 @@ public class SecurityConfig {
         http.authorizeHttpRequests((authorize) ->
                 authorize.requestMatchers("/**").permitAll()
         );
+        http.formLogin((formLogin) -> formLogin.loginPage("/login")
+                .defaultSuccessUrl("/")
+        );
+        http.logout(logout -> logout
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/") // 로그아웃 성공 시 이동할 경로
+        );
         return http.build();
     }
 

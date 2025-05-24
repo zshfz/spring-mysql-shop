@@ -35,7 +35,7 @@ public class ProductController {
 
     //상품 등록하기
     @PostMapping("/write")
-    public String writePost(@Valid ProductDto productDto, BindingResult bindingResult, Model model) {
+    public String writePost(@Valid ProductDto productDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "write";
         }

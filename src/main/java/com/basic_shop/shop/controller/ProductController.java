@@ -1,7 +1,6 @@
 package com.basic_shop.shop.controller;
 
 import com.basic_shop.shop.dto.ProductDto;
-import com.basic_shop.shop.entity.Product;
 import com.basic_shop.shop.service.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -66,5 +65,12 @@ public class ProductController {
         }
         productService.updatePost(id, productDto);
         return "redirect:/detail/" + id;
+    }
+
+    //상품 삭제하기
+    @GetMapping("/delete/{id}")
+    public String deletePost(@PathVariable Long id) {
+        productService.deletePost(id);
+        return "redirect:/";
     }
 }

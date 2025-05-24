@@ -50,10 +50,16 @@ public class ProductService {
 
     //상품 수정
     public void updatePost(Long id, ProductDto productDto) {
-        Product product = new Product();
+        Product product = getProduct(id);
         product.setId(id);
         product.setTitle(productDto.getTitle());
         product.setPrice(productDto.getPrice());
         productRepository.save(product);
+    }
+
+    //상품 삭제
+    public void deletePost(Long id) {
+        Product product = getProduct(id);
+        productRepository.delete(product);
     }
 }

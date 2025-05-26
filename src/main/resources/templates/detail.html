@@ -16,7 +16,7 @@
 <div th:replace="~{navbar.html :: navbar}"></div>
 <div class="detail-container">
     <div class="left">
-        <img src="/image/jacket.png" />
+        <img th:src="${productDto.imageUrl}" />
     </div>
     <div class="right">
         <h2 class="product-title" th:text="${productDto.title}"></h2>

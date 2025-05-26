@@ -10,7 +10,8 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Product {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
     private String title;
@@ -20,4 +21,6 @@ public class Product {
     private String description;
     @Column(nullable = false)
     private String createdBy;
+    @Column(nullable = false)
+    private String imageUrl;
 }

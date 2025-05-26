@@ -12,7 +12,7 @@
     <div class="box-container">
         <div class="box" th:each="product : ${products}">
             <div class="image">
-                <img src="/image/jacket.png" />
+                <img th:src="${product.imageUrl}" />
                 <div class="icons">
                     <i class="ri-edit-fill" th:onclick="|location.href='/edit/${product.id}'|"></i>
                     <i class="ri-information-fill" th:onclick="|location.href='/detail/${product.id}'|"></i>

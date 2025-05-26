@@ -32,6 +32,16 @@ h2 {
   color: #aaa;
   margin-bottom: 25px;
   font-size: 14px;
+  position: relative;
+  overflow: hidden;
+
+}
+
+.image-preview img {
+  position: absolute;
+  top: 0; left: 0; right:0; bottom:0;
+  margin: auto;
+  object-fit: contain;
 }
 
 .form-group {

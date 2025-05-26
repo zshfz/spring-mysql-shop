@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.validator.constraints.URL;
 
 @Getter
 @Setter
@@ -22,4 +23,7 @@ public class ProductDto {
     @Size(max = 1000, message = "The description must be under 1000 characters.")
     private String description;
     private String createdBy;
+    @NotBlank(message = "Please upload an image.")
+    @URL(message = "Image URL is not valid.")
+    private String imageUrl;
 }

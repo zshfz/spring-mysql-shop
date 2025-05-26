@@ -20,7 +20,18 @@
             <h2>Register Product</h2>
 
             <form action="/write" method="POST" th:object="${productDto}">
-                <div class="image-preview">Image preview (coming soon)</div>
+
+                <input type="hidden" th:field="*{imageUrl}" id="imageUrl" />
+
+                <div class="form-group">
+                    <label>Product Image</label>
+                    <div class="image-preview" id="imagePreview">
+                        <span class="placeholder">Image preview</span>
+                        <img id="previewImg" src="" style="display:none; max-width:100%; max-height:100%; border-radius:6px;" >
+                    </div>
+                    <input type="file" onchange="handleFileSelect(this)">
+                    <div class="error" th:if="${#fields.hasErrors('imageUrl')}" th:errors="*{imageUrl}"></div>
+                </div>
 
                 <div class="form-group">
                     <input type="hidden" th:field="*{id}" />
@@ -49,7 +60,43 @@
 
 <script>
     const toggleMenuOpen = () => document.body.classList.toggle("open");
+
+    async function handleFileSelect(input) {
+  const file = input.files[0];
+  if (!file) return;
+
+  // 1) 화면에 미리보기
+  const previewImg = document.getElementById('previewImg');
+  const placeholder = document.querySelector('#imagePreview .placeholder');
+  previewImg.src = URL.createObjectURL(file);
+  previewImg.style.display = 'block';
+  placeholder.style.display = 'none';
+
+  // 2) presigned-url 요청
+  const filename = encodeURIComponent(file.name);
+  const presignRes = await fetch('/presigned-url?filename=' + filename);
+  const uploadUrl = await presignRes.text();
+
+  // 3) S3에 PUT
+  const uploadRes = await fetch(uploadUrl, {
+    method: 'PUT',
+    body: file
+  });
+
+  if (uploadRes.ok) {
+    // 4) hidden input 값 설정
+    const publicUrl = uploadUrl.split('?')[0];
+    document.getElementById('imageUrl').value = publicUrl;
+
+    // 5) 화면에 업로드된 이미지로 교체
+    previewImg.src = publicUrl;
+  } else {
+    console.error('S3 upload failed');
+  }
+}
+
 </script>
+
 
 </body>
 </html>

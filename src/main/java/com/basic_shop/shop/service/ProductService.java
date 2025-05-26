@@ -31,6 +31,7 @@ public class ProductService {
         product.setDescription(productDto.getDescription());
         CustomUser customUser  = (CustomUser) authentication.getPrincipal();
         product.setCreatedBy(customUser.getDisplayName());
+        product.setImageUrl(productDto.getImageUrl());
         productRepository.save(product);
     }
 
@@ -53,6 +54,7 @@ public class ProductService {
         productDto.setPrice(product.getPrice());
         productDto.setDescription(product.getDescription());
         productDto.setCreatedBy(product.getCreatedBy());
+        productDto.setImageUrl(product.getImageUrl());
         return productDto;
     }
 
@@ -65,6 +67,7 @@ public class ProductService {
             product.setPrice(productDto.getPrice());
             product.setDescription(productDto.getDescription());
             product.setCreatedBy(authentication.getName());
+            product.setDescription(productDto.getImageUrl());
             productRepository.save(product);
         }else {
             throw new AccessDeniedException("Only the author can edit this post.");
@@ -80,4 +83,6 @@ public class ProductService {
             throw new AccessDeniedException("Only the author can delete this post.");
         }
     }
+
+
 }

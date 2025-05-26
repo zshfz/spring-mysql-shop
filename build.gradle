@@ -37,6 +37,11 @@ dependencies {
 	//Spring Security
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE'
+	//세션 데이터를 메모리에 저장하는게 아니라 DB에 저장
+	implementation 'org.springframework.session:spring-session-jdbc'
+	//AWS S3
+	implementation 'io.awspring.cloud:spring-cloud-aws-starter-s3:3.1.1'
+
 }
 
 tasks.named('test') {

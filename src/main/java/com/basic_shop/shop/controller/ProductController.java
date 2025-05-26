@@ -2,6 +2,7 @@ package com.basic_shop.shop.controller;
 
 import com.basic_shop.shop.dto.ProductDto;
 import com.basic_shop.shop.service.ProductService;
+import com.basic_shop.shop.service.S3Service;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Optional;
 
@@ -20,6 +22,7 @@ import java.util.Optional;
 public class ProductController {
 
     private final ProductService productService;
+    private final S3Service s3Service;
 
     //메인화면 불러오기 (상품 목록)
     @GetMapping("/")
@@ -44,6 +47,14 @@ public class ProductController {
         }
         productService.addProduct(productDto, authentication);
         return "redirect:/";
+    }
+
+    //presigned-url 발급
+    @GetMapping("/presigned-url")
+    @ResponseBody
+    public String getURL(String filename) {
+        String result = s3Service.createPresignedUrl("test/" + filename);
+        return result;
     }
 
     //상세페이지 불러오기

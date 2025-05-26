@@ -30,7 +30,16 @@ public class MyUserDetailsService implements UserDetailsService {
 
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-        return new User(member.getUsername(), member.getPassword(), authorities);
+
+        CustomUser customUser = new CustomUser(
+                member.getUsername(),
+                member.getPassword(),
+                authorities
+        );
+        customUser.setId(member.getId());
+        customUser.setDisplayName(member.getDisplayName());
+
+        return customUser;
     }
 
 }

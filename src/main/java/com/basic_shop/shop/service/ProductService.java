@@ -1,5 +1,6 @@
 package com.basic_shop.shop.service;
 
+import com.basic_shop.shop.config.CustomUser;
 import com.basic_shop.shop.dto.ProductDto;
 import com.basic_shop.shop.entity.Product;
 import com.basic_shop.shop.repository.ProductRepository;
@@ -28,7 +29,8 @@ public class ProductService {
         product.setTitle(productDto.getTitle());
         product.setPrice(productDto.getPrice());
         product.setDescription(productDto.getDescription());
-        product.setCreatedBy(authentication.getName());
+        CustomUser customUser  = (CustomUser) authentication.getPrincipal();
+        product.setCreatedBy(customUser.getDisplayName());
         productRepository.save(product);
     }
 

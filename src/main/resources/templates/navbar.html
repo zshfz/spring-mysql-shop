@@ -19,7 +19,7 @@
 
     <nav class="navbar-menu">
         <button type="button" sec:authorize="isAuthenticated()" th:onclick="|location.href='@{/write}'|">Write</button>
-        <button type="button" sec:authorize="isAuthenticated()" sec:authentication="principal.username" th:onclick="|location.href='@{/profile}'|"></button>
+        <button type="button" sec:authorize="isAuthenticated()" sec:authentication="principal.displayName" th:onclick="|location.href='@{/profile}'|"></button>
         <button type="button" sec:authorize="isAuthenticated()" th:onclick="|location.href='@{/logout}'|">Logout</button>
         <button type="button" sec:authorize="isAnonymous()" th:onclick="|location.href='@{/login}'|">Login</button>
         <button type="button" sec:authorize="isAnonymous()" th:onclick="|location.href='@{/register}'|">Register</button>

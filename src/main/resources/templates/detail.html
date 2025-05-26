@@ -23,6 +23,8 @@
 
         <p class="product-price" th:text="'₩' + ${#numbers.formatInteger(productDto.price, 3, 'COMMA')}"></p>
 
+        <div class="product-divider"></div>
+
         <div class="product-description">
             <h4>Description</h4>
             <p>
@@ -31,7 +33,10 @@
                 ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
                 aliquip ex ea commodo consequat.
             </p>
+            <span class="created-by"  th:text="'Posted By ' + ${productDto.createdBy}"></span>
         </div>
+
+        <div class="product-divider"></div>
 
         <div class="quantity-wrapper">
             <label for="quantity">Count</label>

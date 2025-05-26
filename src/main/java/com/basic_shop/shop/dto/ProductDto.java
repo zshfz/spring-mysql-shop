@@ -17,4 +17,5 @@ public class ProductDto {
     @NotNull(message = "Please enter the price.")
     @Min(value = 0, message = "The price must be at least 0.")
     private Integer price;
+    private String createdBy;
 }

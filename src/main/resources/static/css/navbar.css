@@ -52,6 +52,7 @@ body.open .navbar-overlay {
   line-height: 64px;
   margin: 0;
   font-size: 16px;
+  cursor: pointer;
 }
 
 .navbar-menu {

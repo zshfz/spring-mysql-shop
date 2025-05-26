@@ -5,6 +5,7 @@ import com.basic_shop.shop.service.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -35,12 +36,13 @@ public class ProductController {
     }
 
     //상품 등록하기
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/write")
-    public String writePost(@Valid ProductDto productDto, BindingResult bindingResult) {
+    public String writePost(@Valid ProductDto productDto, BindingResult bindingResult, Authentication authentication) {
         if (bindingResult.hasErrors()) {
             return "write";
         }
-        productService.addProduct(productDto);
+        productService.addProduct(productDto, authentication);
         return "redirect:/";
     }
 
@@ -59,19 +61,21 @@ public class ProductController {
     }
 
     //상품 수정하기
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/edit/{id}")
-    public String editPost(@PathVariable Long id, @Valid ProductDto productDto, BindingResult bindingResult, Model model) {
+    public String editPost(@PathVariable Long id, @Valid ProductDto productDto, BindingResult bindingResult, Model model, Authentication authentication) {
         if (bindingResult.hasErrors()) {
             return "edit";
         }
-        productService.updatePost(id, productDto);
+        productService.updatePost(id, productDto, authentication);
         return "redirect:/detail/" + id;
     }
 
     //상품 삭제하기
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/delete/{id}")
-    public String deletePost(@PathVariable Long id) {
-        productService.deletePost(id);
+    public String deletePost(@PathVariable Long id, Authentication authentication) {
+        productService.deletePost(id, authentication);
         return "redirect:/";
     }
 }

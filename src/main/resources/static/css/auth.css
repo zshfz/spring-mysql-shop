@@ -90,13 +90,11 @@ body {
 .error {
   font-size: 13px;
   color: #e74c3c;
-  margin-top: 5px;
 }
 
 .login-fail {
   font-size: 13px;
   color: #e74c3c;
-  margin-top: 5px;
 }
 
 @keyframes rotate {

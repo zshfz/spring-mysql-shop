@@ -27,6 +27,7 @@ public class ProductService {
         Product product = new Product();
         product.setTitle(productDto.getTitle());
         product.setPrice(productDto.getPrice());
+        product.setDescription(productDto.getDescription());
         product.setCreatedBy(authentication.getName());
         productRepository.save(product);
     }
@@ -48,6 +49,7 @@ public class ProductService {
         productDto.setId(product.getId());
         productDto.setTitle(product.getTitle());
         productDto.setPrice(product.getPrice());
+        productDto.setDescription(product.getDescription());
         productDto.setCreatedBy(product.getCreatedBy());
         return productDto;
     }
@@ -59,6 +61,8 @@ public class ProductService {
             product.setId(id);
             product.setTitle(productDto.getTitle());
             product.setPrice(productDto.getPrice());
+            product.setDescription(productDto.getDescription());
+            product.setCreatedBy(authentication.getName());
             productRepository.save(product);
         }else {
             throw new AccessDeniedException("Only the author can edit this post.");

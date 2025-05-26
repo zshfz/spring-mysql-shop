@@ -16,6 +16,8 @@ public class Product {
     private String title;
     @Column(nullable = false)
     private Integer price;
+    @Column(nullable = false, length = 1000)
+    private String description;
     @Column(nullable = false)
     private String createdBy;
 }

@@ -27,12 +27,7 @@
 
         <div class="product-description">
             <h4>Description</h4>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-                ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                aliquip ex ea commodo consequat.
-            </p>
+            <p th:text="${productDto.description}"></p>
             <span class="created-by"  th:text="'Posted By ' + ${productDto.createdBy}"></span>
         </div>
 

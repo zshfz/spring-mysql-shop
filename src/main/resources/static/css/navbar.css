@@ -1,0 +1,18 @@
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: black;
+  color: white;
+}
+
+.navbar-container h1 {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.navbar-container .navbar-links a {
+  margin-right: 10px;
+  text-decoration: none;
+  color: white;
+}

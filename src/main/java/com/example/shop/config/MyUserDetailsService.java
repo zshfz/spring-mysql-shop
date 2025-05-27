@@ -38,6 +38,7 @@ public class MyUserDetailsService implements UserDetailsService {
         CustomUser customUser = new CustomUser(member.getUsername(), member.getPassword(), authorities);
         customUser.setDisplayName(member.getDisplayName());
         customUser.setProfileImageUrl(member.getProfileImageUrl());
+        customUser.setId(member.getId());
         return customUser;
     }
 }

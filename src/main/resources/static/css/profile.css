@@ -17,6 +17,7 @@
 
 .profile-container .profile-card .left {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
@@ -27,13 +28,29 @@
   border-radius: 50%;
 }
 
+.profile-container .profile-card .left a {
+  font-size: 15px;
+  color: #ddd;
+  text-decoration: underline;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
 .profile-container .profile-card .right {
   display: flex;
   flex-direction: column;
 }
 
-.profile-container .profile-card h3 {
+.profile-container .profile-card .right h3 {
   margin: 0;
+}
+
+.profile-container .profile-card .right a {
+  font-size: 15px;
+  color: #ddd;
+  text-decoration: underline;
+  margin-left: 5px;
+  cursor: pointer;
 }
 
 .profile-container .post-card {

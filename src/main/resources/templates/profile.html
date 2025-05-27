@@ -16,10 +16,11 @@
 <div class="profile-container">
     <div class="profile-card">
         <div class="left">
-            <img th:src="${#authentication.principal.profileImageUrl}">
+            <img th:src="${#strings.defaultString(#authentication.principal.profileImageUrl, '/images/default-image.png')}" />
+            <a>프로필 이미지 변경</a>
         </div>
         <div class="right">
-            <h3>닉네임</h3>
+            <h3>닉네임<a>닉네임 변경</a></h3>
             <p sec:authentication="principal.displayName"></p>
             <h3>아이디</h3>
             <p sec:authentication="principal.username"></p>

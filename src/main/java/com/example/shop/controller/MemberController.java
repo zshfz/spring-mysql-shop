@@ -35,4 +35,9 @@ public class MemberController {
         model.addAttribute("memberDto", new MemberDto());
         return "login";
     }
+
+    @GetMapping("/profile")
+    public String getProfile() {
+        return "profile";
+    }
 }

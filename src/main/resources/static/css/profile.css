@@ -1,0 +1,77 @@
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  gap: 30px;
+  margin: 10px;
+}
+
+.profile-container .profile-card {
+  padding: 10px;
+  flex: 1;
+  display: flex;
+  gap: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.profile-container .profile-card .left {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-container .profile-card .left img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+
+.profile-container .profile-card .right {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-container .profile-card h3 {
+  margin: 0;
+}
+
+.profile-container .post-card {
+  padding: 10px;
+  flex: 2;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-container .post-card .post-list table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.profile-container .post-card .post-list table thead {
+  background: black;
+  color: white;
+}
+
+.profile-container .post-card .post-list table tr:hover {
+  background: #ddd;
+  cursor: pointer;
+}
+
+.profile-container .post-card .post-list table th,
+td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+
+.profile-container .review-card {
+  padding: 10px;
+  flex: 2;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-container .order-card {
+  padding: 10px;
+  flex: 2;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}

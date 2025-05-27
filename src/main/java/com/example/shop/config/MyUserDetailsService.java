@@ -5,7 +5,6 @@ import com.example.shop.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -30,7 +29,15 @@ public class MyUserDetailsService implements UserDetailsService {
         Member member = result.get();
 
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-        return new User(member.getUsername(), member.getPassword(), authorities);
+        if (username.equals("zshfz8634")) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        } else {
+            authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        }
+
+        CustomUser customUser = new CustomUser(member.getUsername(), member.getPassword(), authorities);
+        customUser.setDisplayName(member.getDisplayName());
+        customUser.setProfileImageUrl(member.getProfileImageUrl());
+        return customUser;
     }
 }

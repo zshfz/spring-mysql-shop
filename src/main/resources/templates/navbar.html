@@ -13,7 +13,7 @@
     <h1 th:onclick="|location.href='@{/}'|">SpringMall</h1>
     <div class="navbar-links">
         <a th:href="@{/write}" sec:authorize="isAuthenticated()">상품등록</a>
-        <a th:href="@{/profile}" sec:authorize="isAuthenticated()">displayName</a>
+        <a th:href="@{/profile}" sec:authorize="isAuthenticated()" sec:authentication="principal.displayName"></a>
         <a th:href="@{/logout}" sec:authorize="isAuthenticated()">로그아웃</a>
         <a th:href="@{/login}" sec:authorize="isAnonymous()">로그인</a>
         <a th:href="@{/register}" sec:authorize="isAnonymous()">회원가입</a>

@@ -1,3 +1,4 @@
+<!--
 <!doctype html>
 <html lang="en">
 <head>
@@ -80,4 +81,112 @@
 </script>
 
 </body>
+</html>-->
+<html>
+<head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+            rel="stylesheet"
+            as="style"
+            onload="this.rel='stylesheet'"
+            href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Plus+Jakarta+Sans%3Awght%40400%3B500%3B700%3B800"
+    />
+
+    <title>Stitch Design</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+</head>
+<body style='font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;' class="bg-neutral-50 min-h-screen flex items-center justify-center overflow-x-hidden">
+
+<div class="w-full max-w-[512px] px-6 py-10 bg-white shadow-md rounded-lg">
+    <h2 class="text-2xl font-bold text-center text-[#141414] mb-6">Register</h2>
+
+    <form action="/register" method="POST" th:object="${memberDto}" class="space-y-5">
+        <div class="mb-4">
+            <label class="block text-base font-medium text-[#141414] mb-2">Profile Image</label>
+            <div class="flex items-center gap-4">
+                <img id="preview" src="/images/default-image.png" class="w-16 h-16 rounded-full object-cover border" />
+                <input
+                        type="file"
+                        accept="image/*"
+                        onchange="getURL(this)"
+                        class="text-sm text-neutral-600"
+                />
+            </div>
+            <input type="hidden" name="profileImageUrl" th:field="*{profileImageUrl}" value="/images/default-profile.png" />
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-base font-medium text-[#141414] mb-2">Username</label>
+            <input
+                    th:field="*{username}"
+                    type="text"
+                    placeholder="Enter your username"
+                    class="w-full h-14 p-4 text-base border border-[#dbdbdb] rounded-lg bg-neutral-50 placeholder:text-neutral-500 focus:outline-none focus:border-[#b0b0b0]"
+            />
+            <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-sm text-red-500 mt-1"></div>
+        </div>
+
+
+        <div class="mb-4">
+            <label class="block text-base font-medium text-[#141414] mb-2">DisplayName</label>
+            <input
+                    th:field="*{displayName}"
+                    type="text"
+                    placeholder="Enter your username"
+                    class="w-full h-14 p-4 text-base border border-[#dbdbdb] rounded-lg bg-neutral-50 placeholder:text-neutral-500 focus:outline-none focus:border-[#b0b0b0]"
+            />
+            <div th:if="${#fields.hasErrors('displayName')}" th:errors="*{displayName}" class="text-sm text-red-500 mt-1"></div>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-base font-medium text-[#141414] mb-2">Password</label>
+            <input
+                    th:field="*{password}"
+                    type="password"
+                    placeholder="Enter your password"
+                    class="w-full h-14 p-4 text-base border border-[#dbdbdb] rounded-lg bg-neutral-50 placeholder:text-neutral-500 focus:outline-none focus:border-[#b0b0b0]"
+            />
+            <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-sm text-red-500 mt-1"></div>
+        </div>
+
+        <button
+                type="submit"
+                class="w-full h-10 bg-[#141414] text-neutral-50 font-bold rounded-lg hover:bg-black transition">
+            Register
+        </button>
+    </form>
+
+    <p class="mt-6 text-sm text-center text-neutral-500">
+        Do you have an account?
+        <a th:href="@{/login}" class="underline hover:text-neutral-700">Login</a>
+    </p>
+</div>
+
+<script>
+    async function getURL(input) {
+        const file = input.files[0];
+        if (!file) return;
+
+        const name = encodeURIComponent(file.name);
+        const response = await fetch('/presigned-url?filename=' + name);
+        const url = await response.text();
+
+        const upload = await fetch(url, {
+            method: 'PUT',
+            body: file
+        });
+
+        if (upload.ok) {
+            const imageUrl = url.split('?')[0];
+            document.querySelector('#preview').src = imageUrl;
+            document.querySelector('input[name="profileImageUrl"]').value = imageUrl;
+        }
+    }
+</script>
+
+
+</body>
+
 </html>

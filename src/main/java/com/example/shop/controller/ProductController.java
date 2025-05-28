@@ -4,6 +4,7 @@ import com.example.shop.dto.ProductDto;
 import com.example.shop.service.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,12 +19,14 @@ public class ProductController {
 
     private final ProductService productService;
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/write")
     public String showWriteForm(Model model) {
         model.addAttribute("productDto", new ProductDto());
         return "write";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/write")
     public String saveProduct(@Valid ProductDto productDto, BindingResult bindingResult, Authentication authentication) {
         if (bindingResult.hasErrors()) {

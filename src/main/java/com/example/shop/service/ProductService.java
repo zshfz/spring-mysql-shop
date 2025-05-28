@@ -1,6 +1,7 @@
 package com.example.shop.service;
 
 import com.example.shop.config.CustomUser;
+import com.example.shop.dto.MemberDto;
 import com.example.shop.dto.ProductDto;
 import com.example.shop.entity.Member;
 import com.example.shop.entity.Product;
@@ -49,5 +50,9 @@ public class ProductService {
             throw new IllegalArgumentException("해당 상품이 존재하지 않습니다.");
         }
         return result.get();
+    }
+
+    public List<Product> findPostByMemberId(Long memberId) {
+        return productRepository.findByMemberId(memberId);
     }
 }

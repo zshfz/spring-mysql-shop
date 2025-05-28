@@ -1,3 +1,4 @@
+<!--
 <!doctype html>
 <html lang="en">
 <head>
@@ -36,5 +37,93 @@
     </div>
 </div>
 
+</body>
+</html>-->
+<html>
+<head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+            rel="stylesheet"
+            as="style"
+            onload="this.rel='stylesheet'"
+            href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Plus+Jakarta+Sans%3Awght%40400%3B500%3B700%3B800"
+    />
+
+    <title>Stitch Design</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+</head>
+<body>
+<div th:replace="~{navbar.html :: navbar}"></div>
+<div class="px-40 flex flex-1 justify-center py-5">
+    <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+        <div class="flex flex-wrap gap-2 p-4">
+            <a
+                    class="text-neutral-500 text-base font-medium leading-normal"
+                    href="#"
+            >Home</a
+            >
+            <span class="text-neutral-500 text-base font-medium leading-normal"
+            >/</span
+            >
+            <a
+                    class="text-neutral-500 text-base font-medium leading-normal"
+                    href="#"
+            >Product</a
+            >
+            <span class="text-neutral-500 text-base font-medium leading-normal"
+            >/</span
+            >
+            <span class="text-[#141414] text-base font-medium leading-normal" th:text="${product.title}"
+            >Women</span
+            >
+        </div>
+        <div class="flex w-full grow @container p-4">
+            <div class="w-[200px] h-[200px] overflow-hidden rounded-lg">
+                <img
+                        th:src="${product.productImageUrl}"
+                        alt="product image"
+                        class="w-full h-full object-contain object-top"
+                />
+            </div>
+        </div>
+        <h1
+                th:text="${product.title}"
+                class="text-[#141414] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 text-left pb-3 pt-5"
+        >
+        </h1>
+        <p
+                th:text="'Registered on ' + ${#temporals.format(product.createdAt, 'yyyy-MM-dd')}"
+                class="text-neutral-500 text-sm font-normal leading-normal pb-3 pt-1 px-4"
+        >
+
+        </p>
+        <p
+                th:text="${product.description}"
+                class="text-[#141414] text-base font-normal leading-normal pb-3 pt-1 px-4"
+        >
+
+        </p>
+        <p
+                th:text="'₩' + ${product.price}"
+                class="text-neutral-500 text-sm font-normal leading-normal pb-3 pt-1 px-4"
+        >
+        </p>
+        <p
+                th:text="'Author ' + ${product.member.displayName}"
+                class="text-neutral-500 text-sm font-normal leading-normal pb-3 pt-1 px-4"
+        >
+        </p>
+        <div class="flex px-4 py-3 justify-start">
+            <button
+                    class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#141414] text-neutral-50 text-sm font-bold leading-normal tracking-[0.015em]"
+            >
+                <span class="truncate">Order</span>
+            </button>
+        </div>
+    </div>
+</div>
+<div th:replace="~{footer.html :: footer}"></div>
 </body>
 </html>

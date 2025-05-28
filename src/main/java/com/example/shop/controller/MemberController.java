@@ -1,9 +1,13 @@
 package com.example.shop.controller;
 
+import com.example.shop.config.CustomUser;
 import com.example.shop.dto.MemberDto;
 import com.example.shop.service.MemberService;
+import com.example.shop.service.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequiredArgsConstructor
 public class MemberController {
     private final MemberService memberService;
+    private final ProductService productService;
 
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
@@ -36,8 +41,12 @@ public class MemberController {
         return "login";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/profile")
-    public String getProfile() {
+    public String getProfile(Model model, Authentication authentication) {
+        CustomUser customUser = (CustomUser) authentication.getPrincipal();
+        Long memberId = customUser.getId();
+        model.addAttribute("products", productService.findPostByMemberId(memberId));
         return "profile";
     }
 }

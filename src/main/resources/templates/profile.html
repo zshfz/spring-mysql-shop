@@ -1,4 +1,4 @@
-<!doctype html>
+<!--<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -62,5 +62,146 @@
     </div>
 </div>
 
+</body>
+</html>-->
+<html>
+<head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+            rel="stylesheet"
+            as="style"
+            onload="this.rel='stylesheet'"
+            href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Plus+Jakarta+Sans%3Awght%40400%3B500%3B700%3B800"
+    />
+
+    <title>Stitch Design</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+</head>
+<body>
+<div th:replace="~{navbar.html :: navbar}"></div>
+<div class="relative flex size-full min-h-screen flex-col bg-white group/design-root overflow-x-hidden" style='font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;'>
+    <div class="layout-container flex h-full grow flex-col">
+        <div class="px-40 flex flex-1 justify-center py-5">
+            <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+                <div class="flex p-4 @container">
+                    <div class="flex w-full flex-col gap-4 items-center">
+                        <div class="flex gap-4 flex-col items-center">
+                            <div
+                                    class="bg-center bg-no-repeat aspect-square bg-cover rounded-full min-h-32 w-32"
+                                    th:style="'background-image: url(' + ${#strings.defaultString(#authentication.principal.profileImageUrl, '/images/default-image.png')} + ')'"
+                            ></div>
+                            <div class="flex flex-col items-center justify-center justify-center">
+                                <p class="text-[#141414] text-[22px] font-bold leading-tight tracking-[-0.015em] text-center" sec:authentication="principal.displayName"></p>
+                                <p class="text-[#757575] text-base font-normal leading-normal text-center" th:text="'@' + ${#authentication.principal.username}"></p>
+                                <p class="text-[#757575] text-base font-normal leading-normal text-center" th:text="'Authorities: ' + ${#authentication.principal.authorities}"></p>
+                            </div>
+                        </div>
+                        <button
+                                class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#f2f2f2] text-[#141414] text-sm font-bold leading-normal tracking-[0.015em] w-full max-w-[480px] @[480px]:w-auto"
+                        >
+                            <span class="truncate">Edit profile</span>
+                        </button>
+                    </div>
+                </div>
+                <h2 class="text-[#141414] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Posts</h2>
+                <div class="p-4">
+                    <div class="flex items-stretch justify-between gap-4 m-10 rounded-lg" th:each="product : ${products}" th:onclick="|location.href='@{/detail/{id}(id=${product.id})}'|">
+                        <div
+                                class="bg-center bg-no-repeat bg-cover rounded-lg w-[200px] h-[200px]"
+                                th:style="|background-image: url('${product.productImageUrl}');|"
+                        ></div>
+                        <div class="flex flex-col gap-1 flex-[2_2_0px]">
+                            <p class="text-[#141414] text-base font-bold leading-tight" th:text="${product.title}"></p>
+                            <p class="text-[#757575] text-sm font-normal leading-normal" th:text="${product.description}"></p>
+                            <p class="text-[#b0b0b0] text-xs font-normal leading-normal" th:text="${#temporals.format(product.createdAt, 'yyyy-MM-dd')}"></p>
+                        </div>
+                    </div>
+                </div>
+                <h2 class="text-[#141414] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Comments</h2>
+                <div class="flex w-full flex-row items-start justify-start gap-3 p-4">
+                    <div
+                            class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 shrink-0"
+                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCXIPCtWy28Sbm9s5Xzp54CUYa3EgvOuqbz7pNtWV7p3YXgniPU4Ku0MSwjIBcY2H6rkJABEEipRP1U1TXTKop74UPNXMeFL_BSG9NS5F1Gq63dYomDLouqDdDNLJL_BTQm39DN6KJw6VY0fKMFEMl_S0YCIdxqTbEWF6_ldqOivudIra3PTeiW2kUW0keCM5u4EHmG1SAAo2Tgk57GBcsgd7DdQqakiOeznSgcspeWNT5npdTu4Oq14jTquW7r4nj0ZsQvKT3XJAd3");'
+                    ></div>
+                    <div class="flex h-full flex-1 flex-col items-start justify-start">
+                        <div class="flex w-full flex-row items-start justify-start gap-x-3">
+                            <p class="text-[#141414] text-sm font-bold leading-normal tracking-[0.015em]">Ethan Walker</p>
+                            <p class="text-[#757575] text-sm font-normal leading-normal">2023-01-15</p>
+                        </div>
+                        <p class="text-[#141414] text-sm font-normal leading-normal">Great post! Looking forward to more content from you.</p>
+                    </div>
+                </div>
+                <h2 class="text-[#141414] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Orders</h2>
+                <div class="px-4 py-3 @container">
+                    <div class="flex overflow-hidden rounded-lg border border-[#e0e0e0] bg-white">
+                        <table class="flex-1">
+                            <thead>
+                            <tr class="bg-white">
+                                <th class="table-db8c968c-4a4e-4d20-96a8-9a3c415ee0f3-column-120 px-4 py-3 text-left text-[#141414] w-[400px] text-sm font-medium leading-normal">Order</th>
+                                <th class="table-db8c968c-4a4e-4d20-96a8-9a3c415ee0f3-column-240 px-4 py-3 text-left text-[#141414] w-[400px] text-sm font-medium leading-normal">Date</th>
+                                <th class="table-db8c968c-4a4e-4d20-96a8-9a3c415ee0f3-column-360 px-4 py-3 text-left text-[#141414] w-60 text-sm font-medium leading-normal">Status</th>
+                                <th class="table-db8c968c-4a4e-4d20-96a8-9a3c415ee0f3-column-480 px-4 py-3 text-left text-[#141414] w-[400px] text-sm font-medium leading-normal">Total</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="border-t border-t-[#e0e0e0]">
+                                <td class="table-db8c968c-4a4e-4d20-96a8-9a3c415ee0f3-column-120 h-[72px] px-4 py-2 w-[400px] text-[#141414] text-sm font-normal leading-normal">#123456</td>
+                                <td class="table-db8c968c-4a4e-4d20-96a8-9a3c415ee0f3-column-240 h-[72px] px-4 py-2 w-[400px] text-[#757575] text-sm font-normal leading-normal">
+                                    2023-01-15
+                                </td>
+                                <td class="table-db8c968c-4a4e-4d20-96a8-9a3c415ee0f3-column-360 h-[72px] px-4 py-2 w-60 text-sm font-normal leading-normal">
+                                    <button
+                                            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-8 px-4 bg-[#f2f2f2] text-[#141414] text-sm font-medium leading-normal w-full"
+                                    >
+                                        <span class="truncate">Shipped</span>
+                                    </button>
+                                </td>
+                                <td class="table-db8c968c-4a4e-4d20-96a8-9a3c415ee0f3-column-480 h-[72px] px-4 py-2 w-[400px] text-[#757575] text-sm font-normal leading-normal">$150</td>
+                            </tr>
+                            <tr class="border-t border-t-[#e0e0e0]">
+                                <td class="table-db8c968c-4a4e-4d20-96a8-9a3c415ee0f3-column-120 h-[72px] px-4 py-2 w-[400px] text-[#141414] text-sm font-normal leading-normal">#789012</td>
+                                <td class="table-db8c968c-4a4e-4d20-96a8-9a3c415ee0f3-column-240 h-[72px] px-4 py-2 w-[400px] text-[#757575] text-sm font-normal leading-normal">
+                                    2023-02-20
+                                </td>
+                                <td class="table-db8c968c-4a4e-4d20-96a8-9a3c415ee0f3-column-360 h-[72px] px-4 py-2 w-60 text-sm font-normal leading-normal">
+                                    <button
+                                            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-8 px-4 bg-[#f2f2f2] text-[#141414] text-sm font-medium leading-normal w-full"
+                                    >
+                                        <span class="truncate">Delivered</span>
+                                    </button>
+                                </td>
+                                <td class="table-db8c968c-4a4e-4d20-96a8-9a3c415ee0f3-column-480 h-[72px] px-4 py-2 w-[400px] text-[#757575] text-sm font-normal leading-normal">$200</td>
+                            </tr>
+                            <tr class="border-t border-t-[#e0e0e0]">
+                                <td class="table-db8c968c-4a4e-4d20-96a8-9a3c415ee0f3-column-120 h-[72px] px-4 py-2 w-[400px] text-[#141414] text-sm font-normal leading-normal">#345678</td>
+                                <td class="table-db8c968c-4a4e-4d20-96a8-9a3c415ee0f3-column-240 h-[72px] px-4 py-2 w-[400px] text-[#757575] text-sm font-normal leading-normal">
+                                    2023-03-25
+                                </td>
+                                <td class="table-db8c968c-4a4e-4d20-96a8-9a3c415ee0f3-column-360 h-[72px] px-4 py-2 w-60 text-sm font-normal leading-normal">
+                                    <button
+                                            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-8 px-4 bg-[#f2f2f2] text-[#141414] text-sm font-medium leading-normal w-full"
+                                    >
+                                        <span class="truncate">Processing</span>
+                                    </button>
+                                </td>
+                                <td class="table-db8c968c-4a4e-4d20-96a8-9a3c415ee0f3-column-480 h-[72px] px-4 py-2 w-[400px] text-[#757575] text-sm font-normal leading-normal">$100</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <style>
+                        @container(max-width:120px){.table-db8c968c-4a4e-4d20-96a8-9a3c415ee0f3-column-120{display: none;}}
+                        @container(max-width:240px){.table-db8c968c-4a4e-4d20-96a8-9a3c415ee0f3-column-240{display: none;}}
+                        @container(max-width:360px){.table-db8c968c-4a4e-4d20-96a8-9a3c415ee0f3-column-360{display: none;}}
+                        @container(max-width:480px){.table-db8c968c-4a4e-4d20-96a8-9a3c415ee0f3-column-480{display: none;}}
+                    </style>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="~{footer.html :: footer}"></div>
 </body>
 </html>

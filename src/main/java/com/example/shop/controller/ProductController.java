@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -36,5 +37,11 @@ public class ProductController {
     public String getProductList(Model model) {
         model.addAttribute("products", productService.getProductList());
         return "product-list";
+    }
+
+    @GetMapping("/detail/{id}")
+    public String showDetail(@PathVariable Long id, Model model) {
+        model.addAttribute("product", productService.getProduct(id));
+        return "detail";
     }
 }

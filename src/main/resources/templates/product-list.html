@@ -13,7 +13,7 @@
 <body>
 <div th:replace="~{navbar.html :: navbar}"></div>
 <div class="product-list-container">
-    <div class="product-card"  th:each="product : ${products}">
+    <div class="product-card"  th:each="product : ${products}" th:onclick="|location.href='@{/detail/{id}(id=${product.id})}'|">
         <img th:src="${product.productImageUrl}" />
         <h3 th:text="${product.title}"></h3>
         <h4 th:text="${product.price} + '원'"></h4>

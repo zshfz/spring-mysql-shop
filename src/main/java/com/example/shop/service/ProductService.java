@@ -42,4 +42,12 @@ public class ProductService {
     public List<Product> getProductList() {
         return productRepository.findAll();
     }
+
+    public Product getProduct(Long id) {
+        Optional<Product> result = productRepository.findById(id);
+        if (result.isEmpty()) {
+            throw new IllegalArgumentException("해당 상품이 존재하지 않습니다.");
+        }
+        return result.get();
+    }
 }

@@ -1,0 +1,175 @@
+<!--
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/write.css">
+    <title>상품 등록</title>
+</head>
+<body>
+
+<div th:replace="~{navbar.html :: navbar}"></div>
+<div class="write-container">
+    <form class="write-card" action="/write" method="POST" th:object="${productDto}">
+        <h1>상품 등록</h1>
+        <div class="write-image-container">
+            <img src="" />
+            <label>상품 이미지 선택</label>
+            <input type="hidden" name="productImageUrl" th:field="*{productImageUrl}" />
+            <input type="file" onchange="getURL(this)" />
+            <div class="error" th:if="${#fields.hasErrors('productImageUrl')}" th:errors="*{productImageUrl}"></div>
+        </div>
+        <input type="text" placeholder="상품 이름" th:field="*{title}">
+        <div class="error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+        <input type="text" placeholder="가격" th:field="*{price}">
+        <div class="error" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+        <input type="text" placeholder="상품 설명" th:field="*{description}">
+        <div class="error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
+        <button type="submit">상품 등록</button>
+    </form>
+</div>
+
+<script>
+    async function getURL(e) {
+        const file = e.files[0];
+        if (!file) return;
+
+        const name = encodeURIComponent(file.name);
+        const response = await fetch('/presigned-url?filename=' + name);
+        const url = await response.text();
+
+        const upload = await fetch(url, {
+            method: 'PUT',
+            body: file
+        });
+
+        if (upload.ok) {
+            const imageUrl = url.split("?")[0];
+            document.querySelector('.write-image-container img').src = imageUrl;
+            document.querySelector('input[name="productImageUrl"]').value = imageUrl;
+        }
+    }
+</script>
+
+
+</body>
+</html>-->
+<html>
+<head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+            rel="stylesheet"
+            as="style"
+            onload="this.rel='stylesheet'"
+            href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Plus+Jakarta+Sans%3Awght%40400%3B500%3B700%3B800"
+    />
+
+    <title>Stitch Design</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+</head>
+<body>
+<div th:replace="~{navbar.html :: navbar}"></div>
+<div class="px-40 flex flex-1 justify-center py-5">
+    <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+        <div class="flex flex-wrap justify-between gap-3 p-4"><p class="text-[#141414] tracking-light text-[32px] font-bold leading-tight min-w-72">Edit Product</p></div>
+        <form class="write-card" th:action="@{/edit/{id}(id=${productDto.id})}" method="POST" th:object="${productDto}">
+            <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+                <div class="flex flex-col min-w-40 flex-1">
+                    <p class="text-[#141414] text-base font-medium leading-normal pb-2">Product Image</p>
+
+                    <img src="/images/product-image.png" id="preview" class="w-[200px] h-[200px] object-cover border rounded mb-2" />
+
+                    <input type="hidden" name="productImageUrl" th:field="*{productImageUrl}" value="/images/placeholder-product.png"/>
+
+                    <input
+                            type="file"
+                            onchange="getURL(this)"
+                            class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#141414] focus:outline-0 focus:ring-0 border border-[#e0e0e0] bg-white focus:border-[#e0e0e0] h-14 placeholder:text-[#757575] p-[15px] text-base font-normal leading-normal"
+                    />
+                </div>
+                <div th:if="${#fields.hasErrors('productImageUrl')}" th:errors="*{productImageUrl}" class="text-sm text-red-500 mt-1"></div>
+            </div>
+            <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+                <label class="flex flex-col min-w-40 flex-1">
+                    <p class="text-[#141414] text-base font-medium leading-normal pb-2">Product Name</p>
+                    <input
+                            type="text"
+                            th:field="*{title}"
+                            placeholder="Enter product name"
+                            class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#141414] focus:outline-0 focus:ring-0 border border-[#e0e0e0] bg-white focus:border-[#e0e0e0] h-14 placeholder:text-[#757575] p-[15px] text-base font-normal leading-normal"
+                    />
+                </label>
+                <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="text-sm text-red-500 mt-1"></div>
+            </div>
+            <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+                <label class="flex flex-col min-w-40 flex-1">
+                    <p class="text-[#141414] text-base font-medium leading-normal pb-2">Price</p>
+                    <input
+                            type="text"
+                            th:field="*{price}"
+                            placeholder="Enter price"
+                            class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#141414] focus:outline-0 focus:ring-0 border border-[#e0e0e0] bg-white focus:border-[#e0e0e0] h-14 placeholder:text-[#757575] p-[15px] text-base font-normal leading-normal"
+                    />
+                </label>
+                <div th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="text-sm text-red-500 mt-1"></div>
+            </div>
+            <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+                <label class="flex flex-col min-w-40 flex-1">
+                    <p class="text-[#141414] text-base font-medium leading-normal pb-2">Description</p>
+                    <textarea
+                            type="text"
+                            th:field="*{description}"
+                            placeholder="Enter product description"
+                            class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#141414] focus:outline-0 focus:ring-0 border border-[#e0e0e0] bg-white focus:border-[#e0e0e0] min-h-36 placeholder:text-[#757575] p-[15px] text-base font-normal leading-normal"
+                    ></textarea>
+                </label>
+                <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-sm text-red-500 mt-1"></div>
+            </div>
+            <div class="flex px-4 py-3 justify-end">
+                <button
+                        class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#141414] text-white text-sm font-bold leading-normal tracking-[0.015em]"
+                >
+                    <span class="truncate">Edit Product</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<div th:replace="~{footer.html :: footer}"></div>
+
+<script>
+    async function getURL(input) {
+        const file = input.files[0];
+        if (!file) return;
+
+        // 미리보기 먼저 보여주기
+        document.getElementById('preview').src = URL.createObjectURL(file);
+
+        // presigned-url 요청
+        const name = encodeURIComponent(file.name);
+        const response = await fetch('/presigned-url?filename=' + name);
+        const url = await response.text();
+
+        // 이미지 S3 업로드
+        const upload = await fetch(url, {
+            method: 'PUT',
+            body: file
+        });
+
+        if (upload.ok) {
+            const imageUrl = url.split('?')[0];
+            document.getElementById('preview').src = imageUrl;
+            document.querySelector('input[name="productImageUrl"]').value = imageUrl;
+        }
+    }
+</script>
+</body>
+</html>
+

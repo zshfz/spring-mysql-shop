@@ -115,12 +115,30 @@
                 class="text-neutral-500 text-sm font-normal leading-normal pb-3 pt-1 px-4"
         >
         </p>
-        <div class="flex px-4 py-3 justify-start">
-            <button
-                    class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#141414] text-neutral-50 text-sm font-bold leading-normal tracking-[0.015em]"
-            >
-                <span class="truncate">Order</span>
-            </button>
+        <div class="flex px-4 py-3 justify-between items-center">
+            <div>
+                <button
+                        class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#141414] text-neutral-50 text-sm font-bold leading-normal tracking-[0.015em]"
+                >
+                    <span class="truncate">Order</span>
+                </button>
+            </div>
+
+            <div class="flex gap-2">
+                <button
+                        class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#141414] text-neutral-50 text-sm font-bold leading-normal tracking-[0.015em]"
+                >
+                    <span class="truncate" th:onclick="|location.href='@{/edit/{id}(id=${product.id})}'|">Edit</span>
+                </button>
+                <button
+                        class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#141414] text-neutral-50 text-sm font-bold leading-normal tracking-[0.015em]"
+                >
+                    <span class="truncate" th:onclick="|fetch('/product/' + [[${product.id}]], { method: 'DELETE' })
+                        .then(r=>r.text())
+                        .then(result=>{window.location.href = '/'})
+                    |">Delete</span>
+                </button>
+            </div>
         </div>
     </div>
 </div>

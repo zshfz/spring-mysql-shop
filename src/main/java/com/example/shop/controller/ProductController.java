@@ -1,17 +1,17 @@
 package com.example.shop.controller;
 
+import com.example.shop.config.CustomUser;
 import com.example.shop.dto.ProductDto;
 import com.example.shop.service.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -47,4 +47,32 @@ public class ProductController {
         model.addAttribute("product", productService.getProduct(id));
         return "detail";
     }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/edit/{id}")
+    public String showEditForm(Model model, @PathVariable Long id, Authentication authentication) {
+        CustomUser customUser = (CustomUser) authentication.getPrincipal();
+        Long memberId = customUser.getId();
+        model.addAttribute("productDto", productService.getProductDto(id, memberId));
+        return "edit";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/edit/{id}")
+    public String editProduct(@Valid ProductDto productDto, BindingResult bindingResult, Authentication authentication, @PathVariable Long id) {
+        if (bindingResult.hasErrors()) {
+            return "edit";
+        }
+        productService.updateProduct(productDto, authentication, id);
+        return "redirect:/";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @DeleteMapping("/product/{id}")
+    public String deleteItem(@PathVariable Long id, Authentication authentication) {
+        CustomUser customUser = (CustomUser) authentication.getPrincipal();
+        productService.deleteProduct(id, customUser.getId());
+        return "redirect:/";
+    }
 }
+

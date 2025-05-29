@@ -46,7 +46,7 @@ public class MemberController {
     public String getProfile(Model model, Authentication authentication) {
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
         Long memberId = customUser.getId();
-        model.addAttribute("products", productService.findPostByMemberId(memberId));
+        model.addAttribute("products", productService.findProductByMemberId(memberId));
         return "profile";
     }
 }

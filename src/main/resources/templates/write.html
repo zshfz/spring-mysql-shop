@@ -12,20 +12,43 @@
 </head>
 <body>
 <div th:replace="~{navbar.html :: navbar}"></div>
-<div class="write-container">
+<form th:action="@{/write}" method="POST" th:object="${postRequest}" class="write-container">
     <div class="write-card">
         <h1>글쓰기</h1>
         <label>제목</label>
-        <input type="text" />
+        <input type="text" th:field="*{title}"/>
+        <div class="error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
         <label>내용</label>
-        <textarea type="text"></textarea>
-        <label>이미지 선택</label>
-        <input type="file" />
+        <textarea type="text" th:field="*{content}"></textarea>
+        <div class="error" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
+        <label for="image-select">이미지 선택</label>
+        <input type="file" id="image-select" onchange="getURL(this)"/>
+        <input type="hidden" th:field="*{postImageUrl}" id="post-image-url"/>
+        <img id="preview" src="/images/default-post-image.png" alt="게시물 이미지" />
         <div class="button-container">
-            <button>등록</button><button class="back-button">뒤로</button>
+            <button type="submit">등록</button>
         </div>
     </div>
-</div>
+</form>
 <div th:replace="~{footer.html :: footer}"></div>
+
+<script>
+    async function getURL(e){
+        let name = encodeURIComponent(e.files[0].name)
+        let result = await fetch('/presigned-url?filename=' + name)
+        let url = await result.text()
+
+        let isImageUpload = await fetch(url, {
+            method: 'PUT',
+            body: e.files[0]
+        })
+
+        if(isImageUpload.ok){
+            document.getElementById('preview').src = url.split("?")[0]
+            document.getElementById('post-image-url').value = url.split("?")[0]
+        }
+
+    }
+</script>
 </body>
 </html>

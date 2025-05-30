@@ -4,6 +4,7 @@ import com.example.website.service.MemberService;
 import com.example.website.dto.RegisterRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,7 +29,7 @@ public class MemberController {
             return "register";
         }
 
-        memberService.register(registerRequest);
+        memberService.addMember(registerRequest);
         return "redirect:/";
     }
 
@@ -36,4 +37,13 @@ public class MemberController {
     public String showLoginForm() {
         return "login";
     }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/profile")
+    public String showProfile() {
+        return "profile";
+    }
+
+
+
 }

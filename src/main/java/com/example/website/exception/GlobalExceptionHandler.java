@@ -1,5 +1,6 @@
 package com.example.website.exception;
 
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -19,6 +20,13 @@ public class GlobalExceptionHandler {
     public String handleUsernameNotFound(UsernameNotFoundException ex, Model model) {
         model.addAttribute("message", ex.getMessage());
         model.addAttribute("status", 400);
+        return "error";
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public String handleAccessDenied(AccessDeniedException ex, Model model) {
+        model.addAttribute("message", ex.getMessage());
+        model.addAttribute("status", 403);
         return "error";
     }
 }

@@ -14,20 +14,21 @@
 <div th:replace="~{navbar.html :: navbar}"></div>
 <div class="detail-container">
     <div class="detail-card">
-        <h3>게시판</h3>
-        <h2>동해물과 백두산이 마르고 닳도록</h2>
-        <h5>이정민 2025-05-29</h5>
-        <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text ever
-            since the 1500s, when an unknown printer took a galley of type and
-            scrambled it to make a type specimen book. It has survived not only
-            five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged. It was popularised in the 1960s with
-            the release of Letraset sheets containing Lorem Ipsum passages, and
-            more recently with desktop publishing software like Aldus PageMaker
-            including versions of Lorem Ipsum.
-        </p>
+        <div class="header">
+            <h3>게시판</h3>
+            <div class="button-container">
+                <button th:onclick="|location.href='@{/edit/{id}(id=${post.id})}'|" sec:authorize="isAuthenticated()">수정</button>
+                <button class="delete" sec:authorize="isAuthenticated()">삭제</button>
+            </div>
+        </div>
+        <h2 th:text="${post.title}"></h2>
+        <div class="name-date-container">
+            <h5 th:text="${post.member.displayName}"></h5>
+            <h5 th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd')}"></h5>
+        </div>
+        <img th:if="${post.postImageUrl != ''}" th:src="${post.postImageUrl}"
+                alt="게시물 이미지"/>
+        <p th:text="${post.content}"></p>
         <div class="comment-container">
             <div class="comment-input-container">
                 <textarea type="text" placeholder="댓글을 입력하세요."></textarea>
@@ -35,14 +36,14 @@
             </div>
             <div class="comment-list-container">
                 <div class="top">
-                    <img src="/images/default-image.png" /><a>이정민</a>
+                    <img src="/images/default-profile-image.png" /><a>이정민</a>
                 </div>
                 <div class="middle">배고프다 집가고 싶다</div>
                 <div class="bottom">2025-05-29</div>
             </div>
             <div class="comment-list-container">
                 <div class="top">
-                    <img src="/images/default-image.png" /><a>이정민</a>
+                    <img src="/images/default-profile-image.png" /><a>이정민</a>
                 </div>
                 <div class="middle">배고프다 집가고 싶다</div>
                 <div class="bottom">2025-05-29</div>

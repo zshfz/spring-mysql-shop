@@ -19,7 +19,7 @@
                 <div class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
             </div>
             <div class="right">
-                <img id="preview" src="/images/default-image.png" alt="프로필 이미지" />
+                <img id="preview" src="/images/default-profile-image.png" alt="프로필 이미지" />
                 <input id="image-select" hidden type="file" onchange="getURL(this)">
                 <input type="hidden" th:field="*{profileImageUrl}" id="profile-image-url"/>
                 <label for="image-select">이미지 선택</label>
@@ -42,7 +42,7 @@
             body: e.files[0]
         })
 
-        if(isImageUpload){
+        if(isImageUpload.ok){
             document.getElementById('preview').src = url.split("?")[0]
             document.getElementById('profile-image-url').value = url.split("?")[0]
         }

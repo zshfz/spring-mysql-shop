@@ -16,7 +16,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public void register(RegisterRequest registerRequest) {
+    public void addMember(RegisterRequest registerRequest) {
         Optional<Member> result = memberRepository.findByUsername(registerRequest.getUsername());
         if (result.isPresent()) {
             throw new IllegalArgumentException("이미 사용중인 아이디 입니다");

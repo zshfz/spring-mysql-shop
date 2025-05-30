@@ -40,6 +40,9 @@ dependencies {
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE'
 	//AWS S3
 	implementation 'io.awspring.cloud:spring-cloud-aws-starter-s3:3.1.1'
+	//세션 DB에 저장할려고
+	implementation 'org.springframework.session:spring-session-jdbc'
+
 }
 
 tasks.named('test') {

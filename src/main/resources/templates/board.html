@@ -15,7 +15,7 @@
 <div class="board-container">
   <div class="board-header">
     <h2>게시판</h2>
-    <button sec:authorize="isAuthenticated()">글쓰기</button>
+    <button sec:authorize="isAuthenticated()" th:onclick="|location.href='@{/write}'|">글쓰기</button>
   </div>
   <table border="1" cellspacing="0" cellpadding="8">
     <thead>
@@ -27,17 +27,11 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-      <td>1</td>
-      <td><a href="/post/1">첫 번째 게시글</a></td>
-      <td>정민</td>
-      <td>2025-05-29</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td><a href="/post/2">두 번째 게시글</a></td>
-      <td>지수</td>
-      <td>2025-05-28</td>
+    <tr th:each="post : ${posts}" th:onclick="|location.href='@{/post/{id}(id=${post.id})}'|">
+      <td th:text="${post.id}">1</td>
+      <td th:text="${post.title}"></td>
+      <td th:text="${post.member.displayName}"></td>
+      <td th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd')}"></td>
     </tr>
     </tbody>
   </table>

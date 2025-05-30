@@ -13,6 +13,46 @@
     border-radius: 10px;
     width: 60%;
 
+    .header {
+      display: flex;
+      justify-content: space-between;
+
+      .button-container {
+        button {
+          padding: 10px;
+          border-radius: 10px;
+          background: #3b3d43;
+          color: white;
+          border: none;
+
+          &:hover {
+            background: #19191c;
+          }
+        }
+
+        .delete {
+          padding: 10px;
+          border-radius: 10px;
+          background: #aaa;
+          color: white;
+          border: none;
+
+          &:hover {
+            background: #19191c;
+          }
+        }
+      }
+    }
+
+    .name-date-container {
+      display: flex;
+      gap: 10px;
+    }
+
+    img {
+      width: 200px;
+    }
+
     p {
     }
 

@@ -9,22 +9,46 @@
 </head>
 <body>
 <div class="register-container">
-    <form>
+    <form th:action="@{/register}" method="POST" th:object="${registerRequest}">
         <h1>회원가입</h1>
         <div class="profile-image-container">
             <div class="left">
-                <input type="text" placeholder="닉네임" />
-                <input type="text" placeholder="아이디" />
+                <input type="text" placeholder="닉네임" th:field="*{displayName}"/>
+                <div class="error" th:if="${#fields.hasErrors('displayName')}" th:errors="*{displayName}"></div>
+                <input type="text" placeholder="아이디" th:field="*{username}"/>
+                <div class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
             </div>
             <div class="right">
-                <img src="/images/default-image.png" alt="프로필 이미지" />
-                <label>이미지 선택</label>
+                <img id="preview" src="/images/default-image.png" alt="프로필 이미지" />
+                <input id="image-select" hidden type="file" onchange="getURL(this)">
+                <input type="hidden" th:field="*{profileImageUrl}" id="profile-image-url"/>
+                <label for="image-select">이미지 선택</label>
             </div>
         </div>
-        <input type="password" placeholder="비밀번호" />
-        <input type="password" placeholder="비밀번호 재입력" />
+        <input type="password" placeholder="비밀번호" th:field="*{password}"/>
+        <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
         <button type="submit">회원가입</button>
     </form>
 </div>
+
+<script>
+    async function getURL(e){
+        let name = encodeURIComponent(e.files[0].name)
+        let result = await fetch('/presigned-url?filename=' + name)
+        let url = await result.text()
+
+        let isImageUpload = await fetch(url, {
+            method: 'PUT',
+            body: e.files[0]
+        })
+
+        if(isImageUpload){
+            document.getElementById('preview').src = url.split("?")[0]
+            document.getElementById('profile-image-url').value = url.split("?")[0]
+        }
+
+    }
+</script>
+
 </body>
 </html>

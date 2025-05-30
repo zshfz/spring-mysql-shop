@@ -15,7 +15,7 @@
 <div class="board-container">
   <div class="board-header">
     <h2>게시판</h2>
-    <button>글쓰기</button>
+    <button sec:authorize="isAuthenticated()">글쓰기</button>
   </div>
   <table border="1" cellspacing="0" cellpadding="8">
     <thead>

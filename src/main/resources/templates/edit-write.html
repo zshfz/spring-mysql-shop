@@ -6,26 +6,27 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
     <link rel="stylesheet" href="/css/global.css" />
     <link rel="stylesheet" href="/css/navbar.css" />
-    <link rel="stylesheet" href="/css/write.css" />
+    <link rel="stylesheet" href="/css/board.css" />
     <link rel="stylesheet" href="/css/footer.css" />
     <title>Document</title>
 </head>
 <body>
 <div th:replace="~{navbar.html :: navbar}"></div>
-<div class="write-container">
-    <div class="write-card">
-        <h1>글쓰기</h1>
+<div class="edit-write-container">
+    <div class="edit-write-card">
+        <h1>글 수정</h1>
         <label>제목</label>
         <input type="text" />
         <label>내용</label>
         <textarea type="text"></textarea>
         <label>이미지 선택</label>
         <input type="file" />
+        <p>기존 이미지 유지 원할 경우 그대로 냅두기!</p>
         <div class="button-container">
-            <button>등록</button><button class="back-button">뒤로</button>
+            <button>수정</button><button class="back-button">뒤로</button>
         </div>
     </div>
 </div>
-<div th:replace="~{footer.html :: footer}"></div>
 </body>
+<div th:replace="~{footer.html :: footer}"></div>
 </html>

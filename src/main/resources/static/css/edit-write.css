@@ -1,0 +1,72 @@
+.edit-write-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+
+  .edit-write-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 30px;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    width: 60%;
+
+    input {
+      padding: 5px;
+      width: 100%;
+      border: 1px solid #aaa;
+      border-radius: 10px;
+    }
+
+    input[type="file"] {
+      border: none;
+    }
+
+    textarea {
+      padding: 10px;
+      width: 100%;
+      border: 1px solid #aaa;
+      border-radius: 10px;
+      height: 200px;
+    }
+
+    p {
+      color: red;
+      font-size: 10px;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: flex-end;
+      gap: 5px;
+
+      button {
+        padding: 5px;
+        border-radius: 10px;
+        width: 10%;
+        background: #3b3d43;
+        color: white;
+        border: none;
+
+        &:hover {
+          background: #19191c;
+        }
+      }
+
+      .back-button {
+        padding: 5px;
+        border-radius: 10px;
+        width: 10%;
+        background: #aaa;
+        color: white;
+        border: none;
+
+        &:hover {
+          background: #19191c;
+        }
+      }
+    }
+  }
+}

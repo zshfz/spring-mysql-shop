@@ -1,0 +1,81 @@
+.edit-profile-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+
+  .card {
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .top {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+
+      p {
+        color: red;
+      }
+
+      img {
+        width: 280px;
+        height: 280px;
+        border-radius: 50%;
+      }
+
+      button {
+        padding: 10px;
+        border-radius: 10px;
+        width: 90%;
+        background: #3b3d43;
+        color: white;
+        border: none;
+
+        &:hover {
+          background: #19191c;
+        }
+      }
+    }
+
+    .divider {
+      border: 1px solid #aaa;
+      margin: 30px;
+      width: 100%;
+    }
+
+    .bottom {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      .input-container {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+
+        input {
+          width: 240px;
+          border-radius: 10px;
+          border: 1px solid #aaa;
+        }
+
+        button {
+          padding: 10px;
+          border-radius: 10px;
+          background: #3b3d43;
+          color: white;
+          border: none;
+
+          &:hover {
+            background: #19191c;
+          }
+        }
+      }
+    }
+  }
+}

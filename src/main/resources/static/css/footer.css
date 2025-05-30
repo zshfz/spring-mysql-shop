@@ -1,0 +1,6 @@
+.footer-container {
+  padding: 150px;
+  background-image: url("/images/background.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}

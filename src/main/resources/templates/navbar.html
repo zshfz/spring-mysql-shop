@@ -1,0 +1,16 @@
+<div class="navbar-container" th:fragment="navbar">
+    <div class="left">
+        <h1 th:href="@{'/'}">CRUD</h1>
+        <a th:href="@{'/login'}">로그인</a>
+        <a th:href="@{'/register'}">회원가입</a>
+        <a th:href="@{'/logout'}">로그아웃</a>
+    </div>
+    <div class="right">
+        <div class="search-container">
+            <input type="text" placeholder="검색어를 입력하세요." />
+            <button><i class="ri-search-line"></i></button>
+        </div>
+        <img src="/images/default-image.png" alt="프로필 이미지" />
+    </div>
+</div>
+

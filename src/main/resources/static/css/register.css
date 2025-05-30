@@ -1,0 +1,84 @@
+.register-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-image: url("/images/background.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    background: white;
+    padding: 50px;
+    border-radius: 10px;
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .profile-image-container {
+      display: flex;
+      gap: 5px;
+
+      .left {
+        flex: 2;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap: 10px;
+
+        input {
+          padding: 10px;
+          border-radius: 10px;
+          border: 1px solid #aaa;
+        }
+      }
+
+      .right {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+
+        img {
+          border-radius: 50%;
+          border: 1px solid #aaa;
+          width: 70px;
+          height: 70px;
+        }
+
+        label {
+          font-size: 10px;
+          cursor: pointer;
+        }
+      }
+    }
+
+    input {
+      padding: 10px;
+      border-radius: 10px;
+      width: 100%;
+      border: 1px solid #aaa;
+    }
+
+    button {
+      padding: 10px;
+      border-radius: 10px;
+      width: 100%;
+      background: #3b3d43;
+      color: white;
+      border: none;
+
+      &:hover {
+        background: #19191c;
+      }
+    }
+  }
+}

@@ -1,0 +1,53 @@
+.board-container {
+  margin: 20px 30px 30px 30px;
+
+  .board-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+
+    button {
+      padding: 10px;
+      border-radius: 10px;
+      background: #3b3d43;
+      color: white;
+      border: none;
+
+      &:hover {
+        background: #19191c;
+      }
+    }
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    thead {
+      background: #3b3d43;
+      color: white;
+
+      th {
+        border: 1px solid #ccc;
+        text-align: center;
+        padding: 8px;
+      }
+    }
+
+    tbody {
+      tr {
+        cursor: pointer;
+
+        &:hover {
+          background: #aaa;
+        }
+      }
+
+      td {
+        border: 1px solid #ccc;
+        text-align: center;
+        padding: 8px;
+      }
+    }
+  }
+}

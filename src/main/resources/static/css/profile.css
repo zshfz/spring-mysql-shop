@@ -1,0 +1,89 @@
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin: 30px;
+
+  .member-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    img {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+    }
+
+    button {
+      padding: 10px;
+      border-radius: 10px;
+      background: #3b3d43;
+      color: white;
+      border: none;
+
+      &:hover {
+        background: #19191c;
+      }
+    }
+  }
+
+  .member-post {
+    .header {
+      padding: 5px;
+    }
+
+    .body {
+      table {
+        width: 100%;
+        border-collapse: collapse;
+
+        thead {
+          background: #3b3d43;
+          color: white;
+
+          th {
+            border: 1px solid #ccc;
+            text-align: center;
+            padding: 8px;
+          }
+        }
+
+        tbody {
+          tr {
+            cursor: pointer;
+
+            &:hover {
+              background: #aaa;
+            }
+          }
+
+          td {
+            border: 1px solid #ccc;
+            text-align: center;
+            padding: 8px;
+          }
+        }
+      }
+    }
+  }
+
+  .member-comment {
+    .header {
+      padding: 5px;
+    }
+
+    .body {
+      .comment-list-container {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        margin: 10px;
+        padding: 5px;
+        border-bottom: 1px solid #aaa;
+        border-top: 1px solid #aaa;
+      }
+    }
+  }
+}

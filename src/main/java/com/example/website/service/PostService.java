@@ -83,4 +83,8 @@ public class PostService {
 
         postRepository.delete(post);
     }
+
+    public List<Post> fullTextSearch(String searchText) {
+        return postRepository.fullTextSearch(searchText);
+    }
 }

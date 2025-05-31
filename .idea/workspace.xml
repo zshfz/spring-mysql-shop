@@ -7,8 +7,8 @@
     <list default="true" id="1f550806-90ac-4125-851d-923530cf1ec8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/website/controller/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/website/controller/PostController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/website/service/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/website/service/PostService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/website/repository/PostRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/website/repository/PostRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/navbar.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

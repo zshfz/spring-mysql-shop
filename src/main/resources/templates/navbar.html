@@ -6,10 +6,10 @@
         <a th:href="@{'/logout'}" sec:authorize="isAuthenticated()">로그아웃</a>
     </div>
     <div class="right">
-        <div class="search-container">
-            <input type="text" placeholder="검색어를 입력하세요." />
-            <button><i class="ri-search-line"></i></button>
-        </div>
+        <form action="/search" method="POST" class="search-container">
+            <input type="text" placeholder="검색어를 입력하세요." name="searchText"/>
+            <button type="submit"><i class="ri-search-line"></i></button>
+        </form>
         <img th:src="${#authentication.principal.profileImageUrl}" alt="프로필 이미지" sec:authorize="isAuthenticated()" th:onclick="|location.href='@{/profile}'|"/>
     </div>
 </div>

@@ -72,4 +72,10 @@ public class PostController {
         postService.deletePost(id, authentication);
         return "redirect:/";
     }
+
+    @PostMapping("/search")
+    public String search(String searchText, Model model) {
+        model.addAttribute("posts", postService.fullTextSearch(searchText));
+        return "board";
+    }
 }

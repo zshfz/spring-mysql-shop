@@ -1,5 +1,6 @@
 package com.example.website.controller;
 
+import com.example.website.dto.CommentRequest;
 import com.example.website.dto.PostRequest;
 import com.example.website.service.PostService;
 import jakarta.validation.Valid;
@@ -45,6 +46,7 @@ public class PostController {
     @GetMapping("/post/{id}")
     public String showDetailForm(Model model, @PathVariable Long id) {
         model.addAttribute("post", postService.getPostDetail(id));
+        model.addAttribute("commentRequest", new CommentRequest());
         return "detail";
     }
 

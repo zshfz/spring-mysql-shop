@@ -30,10 +30,13 @@
                 alt="게시물 이미지"/>
         <p th:text="${post.content}"></p>
         <div class="comment-container">
-            <div class="comment-input-container">
-                <textarea type="text" placeholder="댓글을 입력하세요."></textarea>
-                <button>등록</button>
-            </div>
+            <form th:action="@{/comment/{id}(id=${post.id})}" method="POST" th:object="${commentRequest}">
+                <div class="comment-input-container" >
+                    <textarea type="text" placeholder="댓글을 입력하세요." th:field="*{content}"></textarea>
+                    <button type="submit">등록</button>
+                </div>
+                <div class="error" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
+            </form>
             <div class="comment-list-container">
                 <div class="top">
                     <img src="/images/default-profile-image.png" /><a>이정민</a>

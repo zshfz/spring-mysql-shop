@@ -18,22 +18,27 @@
       justify-content: space-between;
 
       .button-container {
+        display: flex;
+        gap: 5px;
+
+        form {
+          .delete {
+            padding: 10px;
+            border-radius: 10px;
+            background: #aaa;
+            color: white;
+            border: none;
+
+            &:hover {
+              background: #19191c;
+            }
+          }
+        }
+
         button {
           padding: 10px;
           border-radius: 10px;
           background: #3b3d43;
-          color: white;
-          border: none;
-
-          &:hover {
-            background: #19191c;
-          }
-        }
-
-        .delete {
-          padding: 10px;
-          border-radius: 10px;
-          background: #aaa;
           color: white;
           border: none;
 

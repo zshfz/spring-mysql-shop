@@ -72,4 +72,15 @@ public class PostService {
         post.setPostImageUrl(postRequest.getPostImageUrl());
         postRepository.save(post);
     }
+
+    public void deletePost(Long id, Authentication authentication) {
+        Post post = getPostDetail(id);
+
+        CustomUser customUser = (CustomUser) authentication.getPrincipal();
+        if (!post.getMember().getUsername().equals(customUser.getUsername())) {
+            throw new AccessDeniedException("본인의 글만 삭제할 수 있습니다.");
+        }
+
+        postRepository.delete(post);
+    }
 }

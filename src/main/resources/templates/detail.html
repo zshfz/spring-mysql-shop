@@ -16,10 +16,10 @@
     <div class="detail-card">
         <div class="header">
             <h3>게시판</h3>
-            <div class="button-container">
-                <button th:onclick="|location.href='@{/edit/{id}(id=${post.id})}'|" sec:authorize="isAuthenticated()">수정</button>
-                <button class="delete" sec:authorize="isAuthenticated()">삭제</button>
-            </div>
+            <form th:action="@{/delete/{id}(id=${post.id})}" method="POST" class="button-container" sec:authorize="isAuthenticated()">
+                <button th:onclick="|location.href='@{/edit/{id}(id=${post.id})}'|">수정</button>
+                <button type="submit" class="delete">삭제</button>
+            </form>
         </div>
         <h2 th:text="${post.title}"></h2>
         <div class="name-date-container">

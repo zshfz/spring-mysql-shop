@@ -65,4 +65,11 @@ public class PostController {
         postService.updatePost(id, postRequest);
         return "redirect:/post/" + id;
     }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable Long id, Authentication authentication) {
+        postService.deletePost(id, authentication);
+        return "redirect:/";
+    }
 }

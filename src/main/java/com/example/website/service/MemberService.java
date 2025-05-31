@@ -3,7 +3,9 @@ package com.example.website.service;
 import com.example.website.dto.RegisterRequest;
 import com.example.website.entity.Member;
 import com.example.website.repository.MemberRepository;
+import com.example.website.security.CustomUser;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -33,5 +35,14 @@ public class MemberService {
         member.setUsername(registerRequest.getUsername());
         member.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         memberRepository.save(member);
+    }
+
+    public Member getMember(Authentication authentication) {
+        CustomUser customUser = (CustomUser) authentication.getPrincipal();
+        Optional<Member> result = memberRepository.findByUsername(customUser.getUsername());
+        if (result.isEmpty()) {
+            throw new IllegalArgumentException("회원정보를 찾을 수 없습니다.");
+        }
+        return result.get();
     }
 }

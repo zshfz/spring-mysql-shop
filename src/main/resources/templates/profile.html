@@ -15,8 +15,8 @@
 <div class="profile-container">
     <div class="member-info">
         <img th:src="${#authentication.principal.profileImageUrl}" alt="프로필 이미지" />
-        <span sec:authentication="principal.displayName"></span>
-        <span th:text="'@' + ${#authentication.principal.username}"></span>
+        <span th:text="${memberInfo.displayName}"></span>
+        <span th:text="${memberInfo.username}"></span>
         <button>프로필 수정</button>
     </div>
     <div class="member-post">
@@ -33,15 +33,10 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>1</td>
-                    <td><a href="/post/1">첫 번째 게시글</a></td>
-                    <td>2025-05-29</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td><a href="/post/2">두 번째 게시글</a></td>
-                    <td>2025-05-28</td>
+                <tr th:each="post : ${memberInfo.posts}" th:onclick="|location.href='@{/post/{id}(id=${post.id})}'|">
+                    <td th:text="${post.id}"></td>
+                    <td th:text="${post.title}"></td>
+                    <td th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd')}"></td>
                 </tr>
                 </tbody>
             </table>
@@ -52,17 +47,9 @@
             <h2>내가 단 댓글</h2>
         </div>
         <div class="body">
-            <div class="comment-list-container">
-                <div class="top">배고프다 집가고 싶다</div>
-                <div class="bottom">2025-05-29</div>
-            </div>
-            <div class="comment-list-container">
-                <div class="top">배고프다 집가고 싶다</div>
-                <div class="bottom">2025-05-29</div>
-            </div>
-            <div class="comment-list-container">
-                <div class="top">배고프다 집가고 싶다</div>
-                <div class="bottom">2025-05-29</div>
+            <div class="comment-list-container" th:each="comment : ${memberInfo.comments}" th:onclick="|location.href='@{/post/{id}(id=${comment.post.id})}'|">
+                <div class="top" th:text="${comment.content}"></div>
+                <div class="bottom" th:text="${#temporals.format(comment.createdAt, 'yyyy-MM-dd')}"></div>
             </div>
         </div>
     </div>

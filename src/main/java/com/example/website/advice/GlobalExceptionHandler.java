@@ -1,4 +1,4 @@
-package com.example.website.exception;
+package com.example.website.advice;
 
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

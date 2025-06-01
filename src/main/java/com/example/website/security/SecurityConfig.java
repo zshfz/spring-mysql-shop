@@ -28,7 +28,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/write").authenticated()
                         .requestMatchers(HttpMethod.GET, "/edit/**").authenticated()
                         .requestMatchers(HttpMethod.POST, "/edit/**").authenticated()
-                        .requestMatchers(HttpMethod.POST, "/delete/**").authenticated().
+                        .requestMatchers(HttpMethod.POST, "/delete/**").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/edit-profile/**").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/edit-profile/**").authenticated().
                         requestMatchers("/**").permitAll()
         );
         http.formLogin((formLogin) -> formLogin.loginPage("/login")

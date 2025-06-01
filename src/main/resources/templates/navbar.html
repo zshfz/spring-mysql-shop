@@ -10,7 +10,7 @@
             <input type="text" placeholder="검색어를 입력하세요." name="searchText"/>
             <button type="submit"><i class="ri-search-line"></i></button>
         </form>
-        <img th:src="${#authentication.principal.profileImageUrl}" alt="프로필 이미지" sec:authorize="isAuthenticated()" th:onclick="|location.href='@{/profile}'|"/>
+        <img th:src="${memberInfo.profileImageUrl}" alt="프로필 이미지" sec:authorize="isAuthenticated()" th:onclick="|location.href='@{/profile}'|"/>
     </div>
 </div>
 

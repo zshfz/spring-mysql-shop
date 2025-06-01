@@ -28,7 +28,8 @@
         border-radius: 50%;
       }
 
-      button {
+      label {
+        text-align: center;
         padding: 10px;
         border-radius: 10px;
         width: 90%;
@@ -75,6 +76,11 @@
             background: #19191c;
           }
         }
+      }
+
+      .error {
+        color: red;
+        font-size: 12px;
       }
     }
   }

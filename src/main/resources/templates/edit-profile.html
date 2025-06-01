@@ -13,23 +13,45 @@
 <body>
 <div th:replace="~{navbar.html :: navbar}"></div>
 <div class="edit-profile-container">
-    <div class="card">
+    <form th:action="@{/edit-profile/{id}(id=${memberId})}" method="POST" th:object="${editProfileRequest}"  class="card">
         <div class="top">
             <h2>프로필 이미지 변경</h2>
             <p>기존 이미지 유지 원할 경우 그대로 냅두기!</p>
-            <img src="/images/default-image.png" alt="프로필 이미지" />
-            <button>이미지 선택</button>
+            <input type="file" id="image-select" onchange="getURL(this)" hidden/>
+            <input type="hidden" th:field="*{profileImageUrl}" id="profile-image-url"/>
+            <img id="preview" src="/images/default-profile-image.png" alt="프로필 이미지" />
+            <label for="image-select">이미지 선택</label>
         </div>
         <div class="divider"></div>
         <div class="bottom">
             <label>닉네임 변경</label>
             <div class="input-container">
-                <input type="text" placeholder="변경할 닉네임을 입력하세요." />
+                <input type="text" placeholder="변경할 닉네임을 입력하세요." th:field="*{displayName}"/>
                 <button>변경</button>
             </div>
+            <div class="error" th:if="${#fields.hasErrors('displayName')}" th:errors="*{displayName}"></div>
         </div>
-    </div>
+    </form>
 </div>
 <div th:replace="~{footer.html :: footer}"></div>
+
+<script>
+    async function getURL(e){
+        let name = encodeURIComponent(e.files[0].name)
+        let result = await fetch('/presigned-url?filename=' + name)
+        let url = await result.text()
+
+        let isImageUpload = await fetch(url, {
+            method: 'PUT',
+            body: e.files[0]
+        })
+
+        if(isImageUpload.ok){
+            document.getElementById('preview').src = url.split("?")[0]
+            document.getElementById('profile-image-url').value = url.split("?")[0]
+        }
+
+    }
+</script>
 </body>
 </html>

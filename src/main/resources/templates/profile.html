@@ -14,10 +14,10 @@
 <div th:replace="~{navbar.html :: navbar}"></div>
 <div class="profile-container">
     <div class="member-info">
-        <img th:src="${#authentication.principal.profileImageUrl}" alt="프로필 이미지" />
+        <img th:src="${memberInfo.profileImageUrl}" alt="프로필 이미지" />
         <span th:text="${memberInfo.displayName}"></span>
         <span th:text="${memberInfo.username}"></span>
-        <button>프로필 수정</button>
+        <button th:onclick="|location.href='@{/edit-profile/{id}(id=${memberInfo.id})}'|">프로필 수정</button>
     </div>
     <div class="member-post">
         <div class="header">

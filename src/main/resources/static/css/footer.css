@@ -1,4 +1,6 @@
 .footer-container {
+  text-align: center;
+  color: white;
   padding: 150px;
   background-image: url("/images/background.svg");
   background-repeat: no-repeat;

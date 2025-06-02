@@ -78,6 +78,10 @@ public class MemberService {
             throw new AccessDeniedException("본인의 프로필만 수정할 수 있습니다.");
         }
 
+        if (memberRepository.findByDisplayName(editProfileRequest.getDisplayName()).isPresent()) {
+            throw new IllegalArgumentException("이미 사용중인 닉네임 입니다.");
+        }
+
         member.setDisplayName(editProfileRequest.getDisplayName());
         member.setProfileImageUrl(editProfileRequest.getProfileImageUrl());
         memberRepository.save(member);

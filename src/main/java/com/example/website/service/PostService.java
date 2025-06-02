@@ -7,6 +7,8 @@ import com.example.website.repository.MemberRepository;
 import com.example.website.repository.PostRepository;
 import com.example.website.security.CustomUser;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -86,5 +88,9 @@ public class PostService {
 
     public List<Post> fullTextSearch(String searchText) {
         return postRepository.fullTextSearch(searchText);
+    }
+
+    public Page<Post> pagination(Integer id) {
+       return postRepository.findPageBy(PageRequest.of(id - 1, 7));
     }
 }

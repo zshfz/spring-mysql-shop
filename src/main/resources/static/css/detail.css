@@ -120,6 +120,14 @@
         }
 
         .bottom {
+          display: flex;
+          justify-content: space-between;
+
+          .links-container {
+            a {
+              color: #aaa;
+            }
+          }
         }
       }
     }

@@ -2,9 +2,11 @@ package com.example.website.controller;
 
 import com.example.website.dto.CommentRequest;
 import com.example.website.dto.PostRequest;
+import com.example.website.entity.Post;
 import com.example.website.service.PostService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -22,7 +24,10 @@ public class PostController {
 
     @GetMapping("/")
     public String showMainPage(Model model) {
-        model.addAttribute("posts", postService.getAllPosts());
+        Page<Post> result = postService.pagination(1);
+        model.addAttribute("posts", result);
+        model.addAttribute("currentPage", result.getNumber() + 1);
+        model.addAttribute("totalPages", result.getTotalPages());
         return "board";
     }
 
@@ -78,6 +83,15 @@ public class PostController {
     @PostMapping("/search")
     public String search(String searchText, Model model) {
         model.addAttribute("posts", postService.fullTextSearch(searchText));
+        return "board";
+    }
+
+    @GetMapping("/board/page/{id}")
+    public String pagination(Model model, @PathVariable Integer id) {
+        Page<Post> result = postService.pagination(id);
+        model.addAttribute("posts", result);
+        model.addAttribute("currentPage", result.getNumber() + 1);
+        model.addAttribute("totalPages", result.getTotalPages());
         return "board";
     }
 }

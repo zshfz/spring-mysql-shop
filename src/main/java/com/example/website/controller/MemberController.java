@@ -1,7 +1,6 @@
 package com.example.website.controller;
 
 import com.example.website.dto.EditProfileRequest;
-import com.example.website.dto.PostRequest;
 import com.example.website.service.MemberService;
 import com.example.website.dto.RegisterRequest;
 import jakarta.validation.Valid;
@@ -11,9 +10,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -66,4 +65,6 @@ public class MemberController {
         memberService.updateProfile(id, editProfileRequest, authentication);
         return "redirect:/profile";
     }
+
+
 }

@@ -46,10 +46,6 @@
                 <div class="middle" th:text="${comment.content}"></div>
                 <div class="bottom" >
                     <div th:text="${#temporals.format(comment.createdAt, 'yyyy-MM-dd')}"></div>
-                    <div class="links-container">
-                        <a>수정</a>
-                        <a>삭제</a>
-                    </div>
                 </div>
             </div>
         </div>

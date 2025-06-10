@@ -9,15 +9,25 @@
 </head>
 <body>
 <div class="login-container">
-    <form th:action="@{/login}" method="POST">
+    <div class="login-form">
         <h1>로그인</h1>
-        <input type="text" placeholder="아이디" name="username"/>
-        <input type="password" placeholder="비밀번호" name="password"/>
-        <button type="submit">로그인</button>
-        <div class="error" th:if="${param.error}">
-            <h4>아이디나 비밀번호를 잘못 입력하셨습니다.</h4>
-        </div>
-    </form>
+        <input type="text" placeholder="아이디" id="username"/>
+        <input type="password" placeholder="비밀번호" id="password"/>
+        <button onclick="loginJWT()">로그인</button>
+    </div>
 </div>
+
+<script>
+    function loginJWT(){
+      fetch('/login/jwt', {
+        method : 'POST',
+        headers : {'Content-Type': 'application/json'},
+        body : JSON.stringify({
+          username : document.querySelector('#username').value,
+          password : document.querySelector('#password').value
+        })
+      }).then(r => r.text()).then((r)=>{ console.log(r) })
+    }
+</script>
 </body>
 </html>

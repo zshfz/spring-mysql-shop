@@ -9,6 +9,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.ExceptionTranslationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -22,6 +23,14 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf((csrf) -> csrf.disable());
+
+        //로그인 할 때 JWT 쓸거니까 세션 데이터 생성하지 마라
+        http.sessionManagement((session) -> session
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        );
+
+        http.addFilterBefore(new JwtFilter(), ExceptionTranslationFilter.class);
+
         http.authorizeHttpRequests((authorize) ->
                 authorize.requestMatchers(HttpMethod.POST, "/comment/**").authenticated()
                         .requestMatchers(HttpMethod.GET, "/profile").authenticated()
@@ -34,10 +43,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/edit-profile/**").authenticated().
                         requestMatchers("/**").permitAll()
         );
-        http.formLogin((formLogin)
-                -> formLogin.loginPage("/login")
-                .defaultSuccessUrl("/")
-        );
+//        http.formLogin((formLogin)
+//                -> formLogin.loginPage("/login")
+//                .defaultSuccessUrl("/")
+//        );
         http.logout(logout -> logout.logoutUrl("/logout")
                 .logoutSuccessUrl("/"));
         return http.build();

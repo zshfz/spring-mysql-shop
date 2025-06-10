@@ -41,7 +41,11 @@ dependencies {
 	//AWS S3
 	implementation 'io.awspring.cloud:spring-cloud-aws-starter-s3:3.1.1'
 	//세션 DB에 저장할려고
-	implementation 'org.springframework.session:spring-session-jdbc'
+	//implementation 'org.springframework.session:spring-session-jdbc'
+	//JWT 생성, 검증 도와주는 라이브러리
+	implementation 'io.jsonwebtoken:jjwt-api:0.12.5'
+	implementation 'io.jsonwebtoken:jjwt-gson:0.12.5'
+	implementation 'io.jsonwebtoken:jjwt-impl:0.12.5'
 }
 
 tasks.named('test') {

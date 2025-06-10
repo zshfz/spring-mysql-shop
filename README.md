@@ -1,4 +1,4 @@
-#프로젝트/웹사이트_Thymeleaf_Spring_MySQL
+#프로젝트/Thymeleaf-Spring-MySQL-Website
 # 웹사이트 (Thymeleaf + Spring + MySQL)
 ## 1. 프로젝트 개요
 * Thymeleaf + Spring + MySQL을 웹사이트를 개발함으로써 Spring MVC 구조에 대한 감각을 기르고 로그인/회원가입, 게시글 CRUD, 댓글 등 웹 서비스의 핵심 기능을 구현
@@ -143,7 +143,72 @@ src
 | spring_session | - 로그인 사용자 세션 정보를 저장<br>- Spring Session JDBC가 자동 생성          |
 
 ## 8. 화면별 기능
+| 회원가입 화면                                                      |
+|--------------------------------------------------------------|
+| ![Image](https://github.com/user-attachments/assets/84b17b29-90eb-489b-9229-332c390351c7) |
+- 사용자는 아이디, 비밀번호, 닉네임, 프로필 이미지를 선택해서 회원가입
+- 중복된 아이디일 경우 예외를 발생시켜 `error.html`로 이동 (`error.html` 만들어두면 Thymeleaf가 자동으로 화면 전환시켜줌)
+- 이미지는 AJAX 요청으로 presigned-url을 받아오고 그 url에 PUT 요청을 통해 AWS S3 버킷에 업로드
+- member 테이블의 profileImageUrl 컬럼엔 S3에 업로드된 이미지의 url 들어있음
+- 비밀번호는 Spring Security의 Bcrypt로 해싱 처리
+- 프로필 이미지를 선택하지 않았을 경우 S3에 저장되어 있는 기본 이미지가 프로필 이미지로 설정
+- `@Valid`와 `BindingResult` 사용해서 유효값 검사 => HTML에서 `hasError()` 메소드로 오류 메시지 출력
 
+| 로그인 화면                                                       |
+|--------------------------------------------------------------|
+| ![Image](https://github.com/user-attachments/assets/877cb53d-94c5-4057-bab7-70091b21f01c) |
+- 사용자는 아이디, 비밀번호 입력
+- `SecurityConfig`에서 `formLogin()` 설정에 따라 POST 요청은 Spring Security 내부에서 처리됨
+- `MyUserDetailsService`가 호출되어 DB에 사용자가 입력한 username과 일치하는 행이 있는지 확인
+- 인증 성공시 `CustomUser` 객체에 저장
+- 로그인 성공시 메인화면으로 리다이렉트되고 Spring Session 테이블에 세션 정보 저장
+- 실패시 Spring Security가 자동으로 `/login?error`로 리다이렉트 시켜주는데 HTML에서 타임리프 `th:if` 문법으로 오류 메세지 노출
+- 로그인에 성공하면 타임리프의 `sec:authorize`문법으로  navbar에 프로필 사진 출력 
+- 로그인에 성공하면 `@ControllerAdvice`을 통해 세션 정보를 CustomUser 타입으로 형변환해서 전역적으로 리턴하여 어디서든지 사용자 정보를 꺼내 쓸 수 있도록 구현
+- 로그아웃도 `SecurityConfig`에서 logout()이 호출되서 Spring Security 내부에서 자동으로 처리
+
+| 프로필 화면                                                       |
+|--------------------------------------------------------------|
+| ![Image](https://github.com/user-attachments/assets/1591f919-4def-400e-aa0c-d01966d57b59) |
+- `@PreAuthorize("isAuthenticated()")`설정으로 로그인된 사용자만 접근할 수 있도록 구현
+- navbar 오른쪽에 프로필 사진 누르면 프로필 정보 화면으로 이동
+- Spring Security 세션에서 현재 사용자 정보를 추출해 `profile.html`에 주입
+- 프로필 수정 버튼을 누르면 프로필 수정 화면으로 이동
+- 입력 폼에 기존 이미지와 닉네임이 채워져 있도록 구현
+- 자신의 프로필만 수정할 수 있도록 구현
+- 중복된 닉네임일 경우 `error.html`로 이동
+- `@Valid`와 `BindingResult` 사용해서 유효값 검사 => HTML에서 `hasError()` 메소드로 오류 메시지 출력
+- `@OneToMany,` `@ManyToOne`으로 컬럼이 연결되어 있기 때문에 `.`연산자로 화면에 출력시켜 내가 쓴 게시물, 내가 단 댓글 확인 가능, 클릭하면 해당 게시글로 이동
+
+| 홈 화면                                                         |
+|--------------------------------------------------------------|
+| ![Image](https://github.com/user-attachments/assets/b57815cc-a091-4274-afda-0060be681ef4) |
+- 전체 게시글 목록 출력
+- `Page<Post> findPageBy(Pageable pageable);`로 페이지네이션 구현
+- `findPageBy()`의 현재 페이지, 전체 페이지 같은 속성들을 HTML에 주입해서 사용
+- n-gram parser를 이용한 full text index를 만들어서 검색 기능 구현
+- native query 문법으로 `@Query(value = "SELECT * FROM shop.item WHERE MATCH(title) AGAINST(?1)",  nativeQuery = true)`라고 작성해서 full text index 사용해서 검색하도록 구현
+
+| 글쓰기 화면                                                       |
+|--------------------------------------------------------------|
+| ![Image](https://github.com/user-attachments/assets/1340f1ab-1495-4e2c-aec1-cab985549dac) |
+- `@PreAuthorize("isAuthenticated()")`설정으로 로그인된 사용자만 접근할 수 있도록 구현
+- `@Valid`와 `BindingResult` 사용해서 유효값 검사 => HTML에서 `hasError()` 메소드로 오류 메시지 출력
+- 제목과 글내용, 이미지 첨부해서 글쓰기 가능
+- 게시글에 포함할 이미지도 회원가입과 마찬가지로 presigned-url 방식
+
+| 게시글 상세 화면                                                    |
+|--------------------------------------------------------------|
+| ![Image](https://github.com/user-attachments/assets/1864d49b-ee63-4381-b7f6-17db2d2bacd1) |
+- 게시글 수정, 삭제는 게시글을 작성한 사람만 가능하고 게시글을 작성하지 않는 사용자가 수정, 삭제 버튼을 눌렀을 경우 `error.html`로 이동
+- 게시글 수정, 삭제의 경우 게시글의 id를 가지고 전체 행을 가져와서 그 행 안에 있는 username과 현재 로그인 되어있는 사용자의 username을 비교해서 일치할 경우에만 수정, 삭제 가능하도록 구현
+
+
+| 댓글 화면                                                        |
+|--------------------------------------------------------------|
+| ![Image](https://github.com/user-attachments/assets/bc39b82b-d4fe-447a-b921-bf7af6a57162) |
+- CASCADE 설정을 걸어놨기 때문에 게시글을 삭제할 경우 그 게시글에 달린 댓글도 모두 삭제
+- `@PreAuthorize("isAuthenticated()")`설정으로 로그인된 사용자만 댓글을 달 수 있도록 구현
 
 ## 9. 개선 목표
 * RESTapi로 개발해보기

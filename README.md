@@ -213,7 +213,71 @@ src
 - CASCADE 설정을 걸어놨기 때문에 게시글을 삭제할 경우 그 게시글에 달린 댓글도 모두 삭제
 - `@PreAuthorize("isAuthenticated()")`설정으로 로그인된 사용자만 댓글을 달 수 있도록 구현
 
-## 10. 로그인 방식 코드 설명
+10. 로그인 방식 코드 설명
+> **로그인 기능 만들기**
+- 세션 방식의 경우 Spring Security 라이브러리 사용해서 셋팅 코드만 설정해주면 기능 구현 끝
+  1. 로그인용 html 페이지 만들고
+  2. 폼으로 로그인하겠다고 설정해놓고
+  3. DB에 있는 사용자 정보 꺼내오는 코드 작성
+
+> **로그인용 html 페이지**
+```
+<form th:action="@{/login}" method="POST">
+    <h1>로그인</h1>
+    <input type="text" placeholder="아이디" name="username"/>
+    <input type="password" placeholder="비밀번호" name="password"/>
+    <button type="submit">로그인</button>
+    <div class="error" th:if="${param.error}">
+        <h4>아이디나 비밀번호를 잘못 입력하셨습니다.</h4>
+    </div>
+</form>
+```
+- Spring Security가 아이디는 username, 비밀번호는 password로 해놓기로 강제함
+
+> **폼으로 로그인하겠다고 설정**
+```
+http.formLogin((formLogin)
+        -> formLogin.loginPage("/login")
+        .defaultSuccessUrl("/")
+);
+```
+- SecurityConfig 클래스에 위의 코드 추가
+- 로그인 성공시 홈화면으로 이동
+- 로그인 실패할경우 /login?error 페이지로 이동하는데 타임리프의 th:if 문법으로 HTML에서 오류 메시지 출력
+
+> **DB에 있는 사용자 정보 꺼내오는 코드 작성**
+
+![Image](https://github.com/user-attachments/assets/086b816d-464d-490d-8943-f83f7f33eca5)
+```
+public class MyUserDetailsService implements UserDetailsService {
+
+    private final MemberRepository memberRepository;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<Member> result = memberRepository.findByUsername(username);
+        if (result.isEmpty()) {
+            throw new UsernameNotFoundException("존재하지 않는 아이디 입니다.");
+        }
+        Member member = result.get();
+
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+
+        CustomUser customUser = new CustomUser(member.getUsername(), member.getPassword(), authorities);
+        customUser.setDisplayName(member.getDisplayName());
+        customUser.setProfileImageUrl(member.getProfileImageUrl());
+        return customUser;
+    }
+}
+```
+- 사용자가 폼으로 username, password 라는 이름의 데이터 제출하면 위의 그림처럼 클래스들을 타고 이동해서 UserDetailsService 라는 클래스에 도착
+- UserDetailsService 에서 유저정보 DB에서 꺼내주기만 하면 DaoAuthenticationProvider가 알아서 사용자가 제출한 비밀번호와 DB에서 꺼낸 DB랑 비교해줌
+- 이상한게 없으면 입장권용 쿠키를 하나 생성해서 사용자에게 보내주고 세션 데이터도 저장
+- `loadUserByUsername()`에 파라미터 추가하면 사용자가 로그인할 때 제출한 username 들어옴
+- 그래서 DB에서 해당 username과 일치하는 사용자 찾아와서 그 회원정보를 `new User()`에 담아서 리턴해주라고 코드 짜면 끝
+- 컨트롤러에서 Authentication authentication 변수 선언해주면 거기에 현재 로그인 정보 들어있음
+- authentication 변수에 더 많은 정보 집어넣고 싶으면 User 클래스 상속받는 CustomUser 클래스 만들기
 
 ## 11. 개선 목표
 * RESTapi로 개발해보기

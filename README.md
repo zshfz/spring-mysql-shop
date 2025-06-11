@@ -357,6 +357,7 @@ public String loginJWT(@RequestBody Map<String, String> data, HttpServletRespons
 - response라는 파라미터에 `.addCookie()` 하면 쿠키하나를 유저 브라우저에 강제로 집어 넣어줌
 
 > **필터 개념**
+
 ![Image](https://github.com/user-attachments/assets/990a1abb-25fa-4c73-9cca-2d3d447ebd57)
 - 마이페이지 기능(로그인한 사람만 사용할 수 있는 기능)의 경우 로그인 여부를 검사해줘야 하는데 그럴려면 사용자가 제출한 jwt를 까보고 유효기간이 지나지 않았을때 마이페이지를 보내달라고 코드 짜면 됨
 - 로그인한 사람만 사용할 수 있는 기능이 엄청 많을 수도 있을거기 때문에 jwt 검사하는 코드를 함수로 만들고 재사용하는 방식 사용 => Filter

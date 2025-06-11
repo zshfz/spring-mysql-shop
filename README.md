@@ -3,14 +3,18 @@
 * Thymeleaf + Spring + MySQL을 웹사이트를 개발함으로써 Spring MVC 구조에 대한 감각을 기르고 로그인/회원가입, 게시글 CRUD, 댓글 등 웹 서비스의 핵심 기능을 구현
 * 배포 url : [http://zshfzwebsite-env.eba-xdz9qrxw.ap-northeast-2.elasticbeanstalk.com/](http://zshfzwebsite-env.eba-xdz9qrxw.ap-northeast-2.elasticbeanstalk.com/)
 
-## 2. 개발환경
+## 2. 브랜치
+* main : 메인 베포 브랜치, 세션 로그인 방식
+* jwt : [jwt 로그인 방식](https://github.com/zshfz/spring-mysql-website/tree/jwt)
+
+## 3. 개발환경
 * 프론트엔드 : Thymeleaf, CSS
 * 백엔드 : Spring Boot
 * DB : MySQL (Azure Cloud DB)
 * 배포 환경 : AWS Elastic Beanstalk
 
-## 3. 사용 기술
-### 3.1. 프론트엔드
+## 4. 사용 기술
+### 프론트엔드
 * Thymeleaf
   * `implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'` ⇒ HTML에 백엔드 데이터를 동적으로 바인딩
   * navbar, footer를 재사용 가능하게 만들어 전체 페이지에 공통 UI 유지
@@ -18,7 +22,7 @@
 * CSS
   * Nesting 사용
 
-### 3.2. 백엔드
+### 백엔드
 * Spring Boot
   * 메인 프레임워크
   * Controller, Service, Repository 등 계층 분리를 통한 MVC 구조
@@ -47,7 +51,7 @@
   * `lombok'annotationProcessor 'org.projectlombok:lombok'`
   * getter, setter, 생성자 등 반복되는 코드를 줄이기 위해 사용
 
-## 4. 주요 기능
+## 5. 주요 기능
 * 회원가입, 로그인, 로그아웃
 * 게시글 CRUD
 * 댓글
@@ -56,7 +60,7 @@
 * 검색
 * 페이지네이션
 
-## 5. 폴더 구조
+## 6. 폴더 구조
 ```
 src
 └── main
@@ -109,7 +113,7 @@ src
 * 📁advice : @ControllerAdvice 을 사용한 전역 설정
 * 📁resources : Tyymeleaf 템플릿, 이미지, 설정파일
 
-## 6. API 명세서
+## 7. API 명세서
 | 구분 | 기능 | HTTP METHOD | API URL | 요청 | 응답 | 에러 |
 |------|------|-------------|---------|------|------|------|
 | [회원] | 회원가입 | GET | `/register` |  | 회원가입 화면 반환 |  |
@@ -132,7 +136,7 @@ src
 | [댓글] | 댓글 작성 | POST | `/comment/{id}` | 게시글 id,<br />`content`,<br />로그인된 사용자 세션 정보 | 게시글 상세 화면으로 리다이렉트 | - 비로그인 시 403<br />- 유효성 검사 실패 시 HTML에 오류 표시<br />- 게시글이 존재하지 않거나 작성자 정보를 찾을 수 없으면 400 |
 | [이미지] | presigned-url 발급 | GET | `/presigned-url` | `filename` | presigned URL 문자열 | - `filename` 누락 시 400<br />- AWS 연결 실패 시 500 |
 
-## 7. ERD 다이어그램
+## 8. ERD 다이어그램
 ![Image](https://github.com/user-attachments/assets/c740abc4-07d9-4478-8c2e-57a227224bc4)
 | 테이블명           | 설명                                                           |
 |----------------|--------------------------------------------------------------|
@@ -141,7 +145,7 @@ src
 | comment        | - 댓글 테이블<br>- comment 테이블은 member, post 테이블과 각각 N:1 관계<br>- member_id, post_id는 각각 member 테이블의 id, post 테이블의 id와 연결 |
 | spring_session | - 로그인 사용자 세션 정보를 저장<br>- Spring Session JDBC가 자동 생성          |
 
-## 8. 화면별 기능
+## 9. 화면별 기능
 | 회원가입 화면                                                      |
 |--------------------------------------------------------------|
 | ![Image](https://github.com/user-attachments/assets/84b17b29-90eb-489b-9229-332c390351c7) |
@@ -209,7 +213,9 @@ src
 - CASCADE 설정을 걸어놨기 때문에 게시글을 삭제할 경우 그 게시글에 달린 댓글도 모두 삭제
 - `@PreAuthorize("isAuthenticated()")`설정으로 로그인된 사용자만 댓글을 달 수 있도록 구현
 
-## 9. 개선 목표
+## 10. 로그인 방식 코드 설명
+
+## 11. 개선 목표
 * RESTapi로 개발해보기
 * JWT, OAuth2 사용해서 소셜 로그인 구현해보기
 * 아이디/비밀번호 찾기, 이메일 인증, 대댓글, 좋아요, 실시간 인기 게시글, 쪽지, 실시간 채팅 등의 일반적인 웹 사이트 기능을 모두 갖춘 사이트 만들어보기
